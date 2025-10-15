@@ -1,0 +1,14 @@
+{
+  "name": "@lattica/api",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.9.12"
+  },
+  "devDependencies": {
+    "@lattica/typescript-config": "workspace:*",
+    "@types/bun": "latest"
+  }
+}
