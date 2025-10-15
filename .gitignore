@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # Dependencies
 node_modules
 .pnp
@@ -21,12 +19,17 @@ coverage
 # Vercel
 .vercel
 
+# Tanstack
+.tanstack
+
+# Nitro
+.nitro
+
 # Build Outputs
 .next/
 out/
 build
 dist
-
 
 # Debug
 npm-debug.log*

@@ -1,5 +1,5 @@
 {
-  "name": "polylay",
+  "name": "lattica",
   "private": true,
   "scripts": {
     "build": "turbo run build",
