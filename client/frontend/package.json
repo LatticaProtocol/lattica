@@ -1,5 +1,6 @@
 {
-  "name": "@lattica/spa",
+  "name": "@lattica/frontend",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -25,6 +26,8 @@
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
+    "@lattica/eslint": "workspace: *",
+    "@lattica/tsconfig": "workspace: *",
     "@tanstack/eslint-config": "^0.3.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
