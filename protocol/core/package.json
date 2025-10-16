@@ -1,0 +1,11 @@
+{
+  "name": "@lattica/core",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cp node_modules/@lattica/soldep/remappings.txt remappings.txt || true"
+  },
+  "dependencies": {
+    "@lattica/soldep": "workspace:*"
+  }
+}
