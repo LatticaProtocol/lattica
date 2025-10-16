@@ -1,0 +1,9 @@
+{
+  "name": "@lattica/soldep",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "vendor",
+    "remappings.txt"
+  ]
+}
