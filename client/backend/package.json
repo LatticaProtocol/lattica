@@ -1,0 +1,30 @@
+{
+  "name": "@lattica/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "dev": "bun run --hot src/index.ts",
+    "db:generate": "pnpm drizzle-kit generate --config=./drizzle.config.ts",
+    "db:push": "pnpm drizzle-kit push --config=./drizzle.config.ts",
+    "db:migrate": "pnpm drizzle-kit migrate --config=./drizzle.config.ts",
+    "db:seed": "tsx ./src/db/scripts/seed.ts",
+    "db:clean": "tsx ./src/db/scripts/clean.ts"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.6",
+    "hono": "^4.9.12"
+  },
+  "devDependencies": {
+    "@lattica/eslint": "workspace:*",
+    "@lattica/tsconfig": "workspace:*",
+    "@types/bun": "latest",
+    "eslint": "^9.34.0",
+    "@types/node": "latest",
+    "drizzle-kit": "^0.31.5",
+    "tsx": "^4.20.6"
+  }
+}

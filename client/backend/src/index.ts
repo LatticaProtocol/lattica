@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { drizzle } from "drizzle-orm/neon-http";
 
 const app = new Hono();
 
