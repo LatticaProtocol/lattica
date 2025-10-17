@@ -1,2 +1,0 @@
-@openzeppelin/contracts/=node_modules/@lattica/soldep/vendor/@openzeppelin-contracts-5.5.0-rc.1/
-forge-std/=node_modules/@lattica/soldep/vendor/forge-std-1.11.0/src/

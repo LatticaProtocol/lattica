@@ -6,6 +6,6 @@
     "postinstall": "cp node_modules/@lattica/soldep/remappings.txt remappings.txt || true"
   },
   "dependencies": {
-    "@lattica/soldep": "workspace:*"
+    "@lattica/soldeps": "workspace:*"
   }
 }

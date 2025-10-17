@@ -173,15 +173,15 @@ importers:
         specifier: ^8.40.0
         version: 8.46.1(eslint@9.34.0(jiti@2.6.1))(typescript@5.9.2)
 
-  packages/soldep: {}
+  packages/soldeps: {}
 
   packages/tsconfig: {}
 
   protocol/core:
     dependencies:
-      '@lattica/soldep':
+      '@lattica/soldeps':
         specifier: workspace:*
-        version: link:../../packages/soldep
+        version: link:../../packages/soldeps
 
 packages:
 
