@@ -2,7 +2,7 @@
 default_stages: [pre-push]
 
 exclude: >
-  ^(node_modules/|\.git/|dist/|build/|\.next/|out/|coverage/|vendor/|meta/|.*\.svg$)
+  ^(node_modules/|\.git/|dist/|build/|\.next/|out/|coverage/|.*\.svg$)|.*/vendor/|.*/meta/|^vendor/|^meta/
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
