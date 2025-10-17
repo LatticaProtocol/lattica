@@ -3,4 +3,3 @@ src = "contracts"
 test = "test"
 out = "out"
 libs = ["lib", "node_modules"]
-
