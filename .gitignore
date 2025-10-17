@@ -25,6 +25,9 @@ coverage
 # Nitro
 .nitro
 
+# Foundry
+cache
+
 # Build Outputs
 .next/
 out/
