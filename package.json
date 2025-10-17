@@ -13,9 +13,14 @@
     "db:studio": "pnpm --filter @lattica/backend db:studio"
   },
   "devDependencies": {
-    "prettier": "^3.6.2",
-    "turbo": "^2.5.8",
-    "typescript": "5.9.2"
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "neonctl": "catalog:",
+    "rimraf": "catalog:",
+    "prettier": "catalog:",
+    "turbo": "catalog:"
   },
   "packageManager": "pnpm@10.18.3",
   "engines": {
