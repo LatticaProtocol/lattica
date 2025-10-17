@@ -97,7 +97,7 @@ catalogs:
       specifier: ^4.9.12
       version: 4.9.12
     husky:
-      specifier: ^9.1.7
+      specifier: 9.1.7
       version: 9.1.7
     jsdom:
       specifier: ^27.0.0

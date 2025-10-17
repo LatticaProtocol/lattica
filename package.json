@@ -10,7 +10,8 @@
     "db:generate": "pnpm --filter @lattica/backend db:generate",
     "db:migrate": "pnpm --filter @lattica/backend db:migrate",
     "db:seed": "pnpm --filter @lattica/backend db:seed",
-    "db:studio": "pnpm --filter @lattica/backend db:studio"
+    "db:studio": "pnpm --filter @lattica/backend db:studio",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "catalog:",
