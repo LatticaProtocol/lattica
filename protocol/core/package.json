@@ -7,5 +7,10 @@
   },
   "dependencies": {
     "@lattica/soldeps": "workspace:*"
+  },
+  "devDependencies": {
+    "prettier": "catalog:",
+    "prettier-plugin-solidity": "^2.1.0",
+    "solhint": "^6.0.1"
   }
 }
