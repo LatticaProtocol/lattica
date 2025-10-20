@@ -1,0 +1,16 @@
+{
+  "name": "@lattica/fi",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cp node_modules/@lattica/soldeps/remappings.txt remappings.txt || true"
+  },
+  "dependencies": {
+    "@lattica/soldeps": "workspace:*"
+  },
+  "devDependencies": {
+    "prettier": "catalog:",
+    "prettier-plugin-solidity": "^2.1.0",
+    "solhint": "^6.0.1"
+  }
+}
