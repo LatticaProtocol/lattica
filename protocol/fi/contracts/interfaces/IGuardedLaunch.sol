@@ -95,4 +95,3 @@ interface IGuardedLaunch {
         uint256 amount
     ) external view returns (bool);
 }
-

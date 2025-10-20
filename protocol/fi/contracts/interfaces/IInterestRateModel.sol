@@ -95,4 +95,3 @@ interface IInterestRateModel {
     function jumpMultiplierPerYear() external view returns (uint256);
     function kink() external view returns (uint256);
 }
-

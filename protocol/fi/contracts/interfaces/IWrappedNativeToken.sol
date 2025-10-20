@@ -14,4 +14,3 @@ interface IWrappedNativeToken is IERC20 {
      */
     function withdraw(uint256 amount) external;
 }
-

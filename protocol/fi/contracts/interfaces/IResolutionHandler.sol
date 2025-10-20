@@ -129,4 +129,3 @@ interface IResolutionHandler {
         address user
     ) external view returns (bool);
 }
-
