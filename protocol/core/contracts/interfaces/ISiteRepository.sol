@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./ISite.sol";
+
 interface ISiteRepository {
     /**
      * @notice Emitted on Site deployment
@@ -53,7 +55,7 @@ interface ISiteRepository {
      * @param interestRateModel Address of the interest rate model
      * @param maxLtv Maximum LTV in basis points (e.g., 7500 = 75%)
      * @param liquidationThreshold Liquidation threshold in basis points (e.g., 8000 = 80%)
-     * @return site Address of the created Site contract
+     * @return site Instance of ISite
      */
     function createSite(
         bytes32 conditionId,
@@ -61,21 +63,21 @@ interface ISiteRepository {
         address interestRateModel,
         uint256 maxLTV,
         uint256 liquidationThreshold
-    ) external returns (address site);
+    ) external returns (ISite site);
 
     /**
      * @notice Gets the Site address for a given Polymarket condition
      * @param conditionId Polymarket condition ID
-     * @return Address of the Site, or address(0) if no Site exists for this condition
+     * @return ISite instance, or ISite(address(0)) if no Site exists for this condition
      */
-    function getSite(bytes32 conditionId) external view returns (address);
+    function getSite(bytes32 conditionId) external view returns (ISite);
 
     /**
      * @notice Returns all deployed Site addresses
      * @dev May be gas-intensive for large numbers of Sites. Use carefully in view functions.
-     * @return Array of all Site addresses
+     * @return Array of all ISite instances
      */
-    function getSites() external view returns (address[] memory);
+    function getSites() external view returns (ISite[] memory);
 
     /**
      * @notice Checks if an address is a valid deployed Site
@@ -88,9 +90,12 @@ interface ISiteRepository {
      * @notice Proposes a new Polymarket market for Site creation
      * @dev Anyone can propose, but only approved markets can have Sites created
      * @param conditionId Polymarket condition ID to propose
-     * @param oracle Proposed oracle address for this market
+     * @param oracle Proposed oracle for this market
      */
-    function purposeMarket(bytes32 conditionId, address oracle) external;
+    function purposeMarket(
+        bytes32 conditionId,
+        IPolymarketOracle oracle
+    ) external;
 
     /**
      * @notice Approves a proposed market for Site creation
@@ -123,21 +128,24 @@ interface ISiteRepository {
 
     /**
      * @notice Gets the current Site factory address
-     * @return Address of the active Site factory
+     * @return ISiteFactory instance
      */
-    function siteFactory() external view returns (address);
+    function siteFactory() external view returns (ISiteFactory);
 
     /**
      * @notice Gets the tokens factory address
-     * @return Address of the factory that deploys share tokens
+     * @return ITokensFactory instance
      */
-    function tokensFactory() external view returns (address);
+    function tokensFactory() external view returns (ITokensFactory);
 
     /**
      * @notice Gets the interest rate model factory address
-     * @return Address of the factory that deploys interest rate models
+     * @return IInterestRateModelFactory instance
      */
-    function interestRateModelFactory() external view returns (address);
+    function interestRateModelFactory()
+        external
+        view
+        returns (IInterestRateModelFactory);
 
     /**
      * @notice Sets the default maximum loan-to-value ratio
@@ -169,31 +177,31 @@ interface ISiteRepository {
      * @notice Gets the configuration contract address
      * @return Address of ISiteConfiguration implementation
      */
-    function configuration() external view returns (address);
+    function configuration() external view returns (ISiteConfiguration);
 
     /**
      * @notice Gets the oracle registry address
      * @return Address of IOracleRegistry implementation
      */
-    function oracleRegistry() external view returns (address);
+    function oracleRegistry() external view returns (IOracleRegistry);
 
     /**
      * @notice Gets the fee collector address
      * @return Address of IFeeCollector implementation
      */
-    function feeCollector() external view returns (address);
+    function feeCollector() external view returns (IFeeCollector);
 
     /**
      * @notice Gets the access control address
      * @return Address of IAccessControl implementation
      */
-    function accessControl() external view returns (address);
+    function accessControl() external view returns (IAccessControl);
 
     /**
      * @notice Gets the guarded launch address
      * @return Address of IGuardedLaunch implementation
      */
-    function guardedLaunch() external view returns (address);
+    function guardedLaunch() external view returns (IGuardedLaunch);
 
     /**
      * @notice Gets the repository owner address

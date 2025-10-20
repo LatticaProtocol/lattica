@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 interface ITokensFactory {
     /// @notice Type of share token being deployed
     enum TokenType {
@@ -23,48 +25,48 @@ interface ITokensFactory {
 
     /**
      * @notice Creates a borrowable collateral share token
-     * @param site Address of the Site
+     * @param site ISite instance
      * @param asset Address of the underlying asset
      * @param name Token name
      * @param symbol Token symbol
-     * @return Address of deployed token
+     * @return Deployed IShareToken instance
      */
     function createShareCollateralToken(
-        address site,
+        ISite site,
         address asset,
         string calldata name,
         string calldata symbol
-    ) external returns (address);
+    ) external returns (IShareToken);
 
     /**
      * @notice Creates a protected collateral share token
-     * @param site Address of the Site
+     * @param site ISite instance
      * @param asset Address of the underlying asset
      * @param name Token name
      * @param symbol Token symbol
-     * @return Address of deployed token
+     * @return Deployed IShareToken instance
      */
     function createShareProtectedToken(
-        address site,
+        ISite site,
         address asset,
         string calldata name,
         string calldata symbol
-    ) external returns (address);
+    ) external returns (IShareToken);
 
     /**
      * @notice Creates a debt share token (implements IERC20R)
-     * @param site Address of the Site
+     * @param site ISite instance
      * @param asset Address of the underlying asset
      * @param name Token name
      * @param symbol Token symbol
-     * @return Address of deployed token
+     * @return Deployed IERC20R instance
      */
     function createShareDebtToken(
-        address site,
+        ISite site,
         address asset,
         string calldata name,
         string calldata symbol
-    ) external returns (address);
+    ) external returns (IERC20R);
 
     /**
      * @notice Validates if address is a Site

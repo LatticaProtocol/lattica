@@ -111,7 +111,7 @@ interface ISite is IBaseSite {
     /**
      * @notice Updates the interest rate model
      * @dev Only callable by ISiteConfiguration
-     * @param newModel Address of the new interest rate model
+     * @param newModel New IInterestRateModel instance
      */
-    function updateInterestRateModel(address newModel) external;
+    function updateInterestRateModel(IInterestRateModel newModel) external;
 }

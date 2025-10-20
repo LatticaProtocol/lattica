@@ -255,13 +255,13 @@ interface IBaseSite {
 
     /**
      * @notice Gets the repository address
-     * @return Address of the ISiteRepository contract
+     * @return ISiteRepository instance
      */
-    function repository() external view returns (address);
+    function repository() external view returns (ISiteRepository);
 
     /**
      * @notice Gets the interest rate model address
-     * @return Address of the IInterestRateModel contract for this Site
+     * @return IInterestRateModel instance for this Site
      */
-    function interestRateModel() external view returns (address);
+    function interestRateModel() external view returns (IInterestRateModel);
 }
