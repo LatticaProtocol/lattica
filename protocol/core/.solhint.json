@@ -8,6 +8,7 @@
       }
     ],
     "no-console": ["error"],
+    "max-line-length": "110",
     "comprehensive-interface": "off",
     "no-empty-blocks": "off",
     "contract-name-camelcase": "off",
