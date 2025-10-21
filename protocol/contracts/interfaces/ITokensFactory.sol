@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./ISite.sol";
+import "./IShareToken.sol";
+import "./IERC20R.sol";
 
 interface ITokensFactory {
     /// @notice Type of share token being deployed
@@ -13,12 +15,12 @@ interface ITokensFactory {
 
     /// @notice Emitted when a share token is deployed
     /// @param token Address of deployed token
-    /// @param site Address of Site this token belongs to
+    /// @param site ISite instance this token belongs to
     /// @param asset Address of underlying asset
     /// @param tokenType Type of token deployed
     event ShareTokenDeployed(
         address indexed token,
-        address indexed site,
+        ISite indexed site,
         address indexed asset,
         TokenType tokenType
     );

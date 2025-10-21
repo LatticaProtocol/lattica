@@ -5,7 +5,7 @@ import "./ISite.sol";
 import "./ISiteFactory.sol";
 import "./IOracleRegistry.sol";
 import "./IPolymarketOracle.sol";
-import "./ISiteConfiguration.sol";
+import "./ISiteConfig.sol";
 import "./IFeeCollector.sol";
 import "./IGuardedLaunch.sol";
 import "./IInterestRateModel.sol";
@@ -176,9 +176,9 @@ interface ISiteRepository {
 
     /**
      * @notice Gets the configuration contract
-     * @return ISiteConfiguration instance
+     * @return ISiteConfig instance
      */
-    function configuration() external view returns (ISiteConfiguration);
+    function config() external view returns (ISiteConfig);
 
     /**
      * @notice Gets the oracle registry

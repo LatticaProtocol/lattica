@@ -2,6 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./ISiteRepository.sol";
+import "./IInterestRateModel.sol";
 
 interface IBaseSite {
     /// @notice Status of an asset within a Site
@@ -256,13 +257,13 @@ interface IBaseSite {
     function borrowToken() external view returns (address);
 
     /**
-     * @notice Gets the repository address
+     * @notice Gets the repository
      * @return ISiteRepository instance
      */
     function repository() external view returns (ISiteRepository);
 
     /**
-     * @notice Gets the interest rate model address
+     * @notice Gets the interest rate model
      * @return IInterestRateModel instance for this Site
      */
     function interestRateModel() external view returns (IInterestRateModel);

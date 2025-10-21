@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./ISite.sol";
+
 interface IResolutionHandler {
     /**
      * @notice States of resolution process
@@ -39,80 +41,80 @@ interface IResolutionHandler {
     /**
      * @notice Triggers resolution process for a Site
      * @dev Begins grace period. Only callable when oracle reports resolution.
-     * @param site Site address to resolve
+     * @param site ISite instance to resolve
      */
-    function handleResolution(address site) external;
+    function handleResolution(ISite site) external;
 
     /**
      * @notice Finalizes resolution after grace period
      * @dev Transitions to RESOLVED state. Enables liquidation of losing positions.
-     * @param site Site address to finalize
+     * @param site ISite instance to finalize
      */
-    function finalizeResolution(address site) external;
+    function finalizeResolution(ISite site) external;
 
     /**
      * @notice Disputes a resolution (rare)
      * @dev Only callable by EMERGENCY_ADMIN_ROLE if resolution is incorrect
-     * @param site Site address to dispute
+     * @param site ISite instance to dispute
      */
-    function disputeResolution(address site) external;
+    function disputeResolution(ISite site) external;
 
     /**
      * @notice Liquidates positions backed by losing outcome
      * @dev After resolution, losing collateral is worth $0. Auto-liquidate these users.
-     * @param site Site address
+     * @param site ISite instance
      * @param users Array of users to liquidate
      */
     function liquidateLosingPositions(
-        address site,
+        ISite site,
         address[] calldata users
     ) external;
 
     /**
      * @notice Distributes $1 payout to winning collateral holders
      * @dev Users with winning shares can redeem for $1 each via CTF
-     * @param site Site address
+     * @param site ISite instance
      * @param user User to distribute winnings to
      * @return amount Amount distributed
      */
     function distributeWinnings(
-        address site,
+        ISite site,
         address user
     ) external returns (uint256 amount);
 
     /**
      * @notice Gets current resolution state
-     * @param site Site address
+     * @param site ISite instance
      * @return Current state enum
      */
     function getResolutionState(
-        address site
+        ISite site
     ) external view returns (ResolutionState);
 
     /**
      * @notice Checks if resolution is complete
-     * @param site Site address
+     * @param site ISite instance
      * @return True if fully resolved
      */
-    function isResolutionComplete(address site) external view returns (bool);
+    function isResolutionComplete(ISite site) external view returns (bool);
 
     /**
      * @notice Gets when grace period ends
-     * @param site Site address
+     * @param site ISite instance
      * @return Timestamp when grace period ends
      */
-    function getGracePeriodEnd(address site) external view returns (uint256);
+    function getGracePeriodEnd(ISite site) external view returns (uint256);
 
     /**
      * @notice Checks if user can withdraw asset
      * @dev During grace period, may restrict withdrawals
-     * @param site Site address
+     * @param site ISite instance
      * @param user User address
      * @param asset Asset address
      * @return True if withdrawal allowed
      */
     function canWithdraw(
-        address site,
+        ISite site,
         address user,
         address asset
     ) external view returns (bool);
@@ -120,12 +122,12 @@ interface IResolutionHandler {
     /**
      * @notice Checks if user can be liquidated
      * @dev Considers both solvency and resolution state
-     * @param site Site address
+     * @param site ISite instance
      * @param user User address
      * @return True if liquidatable
      */
     function canLiquidate(
-        address site,
+        ISite site,
         address user
     ) external view returns (bool);
 }

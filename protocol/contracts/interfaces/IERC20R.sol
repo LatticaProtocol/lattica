@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 interface IERC20R is IERC20 {
     /// @notice Emitted when receive approval is set
     /// @param owner Address that can receive tokens

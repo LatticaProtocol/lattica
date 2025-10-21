@@ -1,6 +1,11 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./IBaseSite.sol";
+import "./IInterestRateModel.sol";
+import "./IHookReceiver.sol";
+import "./IFlashLiquidationReceiver.sol";
+
 interface ISite is IBaseSite {
     /**
      * @notice Deposits collateral into the Site
@@ -95,23 +100,61 @@ interface ISite is IBaseSite {
 
     /**
      * @notice Updates cached risk parameters
-     * @dev Only callable by ISiteConfiguration. This is the PUSH mechanism for cache updates.
+     * @dev Only callable by ISiteConfig. This is the PUSH mechanism for cache updates.
      * @param asset Address of the asset to update config for
      * @param maxLtv New maximum loan-to-value in basis points
      * @param liquidationThreshold New liquidation threshold in basis points
+     * @param liquidationTargetLtv New target LTV after liquidation in basis points
      * @param liquidationPenalty New liquidation penalty in basis points
      */
     function updateCachedConfig(
         address asset,
         uint256 maxLtv,
         uint256 liquidationThreshold,
+        uint256 liquidationTargetLtv,
         uint256 liquidationPenalty
     ) external;
 
     /**
      * @notice Updates the interest rate model
-     * @dev Only callable by ISiteConfiguration
+     * @dev Only callable by ISiteConfig
      * @param newModel New IInterestRateModel instance
      */
     function updateInterestRateModel(IInterestRateModel newModel) external;
+
+    /**
+     * @notice Gets the hook receiver for this Site
+     * @dev Hook receiver handles liquidations, gauges, and other extensions
+     * @return IHookReceiver instance, or IHookReceiver(address(0)) if none set
+     */
+    function hookReceiver() external view returns (IHookReceiver);
+
+    /**
+     * @notice Updates hook configuration
+     * @dev Must be called after hook receiver changes its configuration.
+     *      Syncs the Site's cached hook config with the hook receiver.
+     */
+    function updateHooks() external;
+
+    /**
+     * @notice Allows hook receiver to call functions on behalf of Site
+     * @dev ONLY callable by the hook receiver. Enables powerful liquidation mechanics.
+     * @param target Target contract address
+     * @param value ETH value to send
+     * @param data Calldata to execute
+     * @return success True if call succeeded
+     * @return result Return data from the call
+     */
+    function callOnBehalfOfSite(
+        address target,
+        uint256 value,
+        bytes calldata data
+    ) external payable returns (bool success, bytes memory result);
+
+    /**
+     * @notice Emitted when hook configuration is updated
+     * @param hooksBefore Bitmask of actions with beforeAction hooks
+     * @param hooksAfter Bitmask of actions with afterAction hooks
+     */
+    event HooksUpdated(uint24 hooksBefore, uint24 hooksAfter);
 }

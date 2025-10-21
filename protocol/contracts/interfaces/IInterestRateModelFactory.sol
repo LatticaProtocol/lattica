@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./IInterestRateModel.sol";
+
 interface IInterestRateModelFactory {
     /// @notice Emitted when new model is created
     event InterestRateModelCreated(
-        address indexed model,
+        IInterestRateModel indexed model,
         address indexed creator
     );
 

@@ -1,13 +1,18 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./ISite.sol";
+import "./ISiteRepository.sol";
+import "./IInterestRateModel.sol";
+import "./IHookReceiver.sol";
+
 interface ISiteFactory {
     /// @notice Emitted when a new Site is deployed
-    /// @param site Address of deployed Site
+    /// @param site ISite instance of deployed contract
     /// @param conditionId Polymarket condition ID
     /// @param version Factory version used
     event SiteDeployed(
-        address indexed site,
+        ISite indexed site,
         bytes32 indexed conditionId,
         uint256 version
     );
@@ -21,6 +26,7 @@ interface ISiteFactory {
      * @param noToken Address of NO share token (from Polymarket CTF)
      * @param borrowToken Address of USDC
      * @param interestRateModel IInterestRateModel instance
+     * @param hookReceiver IHookReceiver for liquidations and extensions (can be address(0))
      * @return site Deployed ISite instance
      */
     function createSite(
@@ -29,7 +35,8 @@ interface ISiteFactory {
         address yesToken,
         address noToken,
         address borrowToken,
-        IInterestRateModel interestRateModel
+        IInterestRateModel interestRateModel,
+        IHookReceiver hookReceiver
     ) external returns (ISite site);
 
     /**
@@ -37,10 +44,4 @@ interface ISiteFactory {
      * @return Version number
      */
     function version() external view returns (uint256);
-
-    /**
-     * @notice Ping function to verify interface
-     * @return Function selector
-     */
-    function siloFactoryPing() external pure returns (bytes4);
 }
