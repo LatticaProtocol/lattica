@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./ISiteRepository.sol";
+
 interface IBaseSite {
     /// @notice Status of an asset within a Site
     enum AssetStatus {

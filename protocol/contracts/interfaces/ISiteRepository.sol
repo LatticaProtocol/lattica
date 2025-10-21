@@ -2,78 +2,79 @@
 pragma solidity ^0.8.20;
 
 import "./ISite.sol";
+import "./ISiteFactory.sol";
+import "./IOracleRegistry.sol";
+import "./IPolymarketOracle.sol";
+import "./ISiteConfiguration.sol";
+import "./IFeeCollector.sol";
+import "./IGuardedLaunch.sol";
+import "./IInterestRateModel.sol";
+import "./IInterestRateModelFactory.sol";
+import "./ITokensFactory.sol";
+import "./IHookReceiver.sol";
+import "@openzeppelin/contracts/access/IAccessControl.sol";
 
 interface ISiteRepository {
-    /**
-     * @notice Emitted on Site deployment
-     * @param site Address of deployed Site contract
-     * @param conditionId Polymarket condition ID
-     * @param creator Address that triggered Site deployment
-     **/
+    /// @notice Emitted when a new Site is deployed
+    /// @param site ISite instance of the newly deployed contract
+    /// @param conditionId Polymarket condition ID for this market
+    /// @param creator Address that triggered Site creation
     event SiteCreated(
-        address indexed site,
-        byte32 indexedConditionId,
+        ISite indexed site,
+        bytes32 indexed conditionId,
         address indexed creator
     );
 
-    /**
-     * @notice Emitted when a market is approved for Site creation
-     * @param conditionId Polymarket condition ID
-     **/
-    event MarketApproved(byte32 indexed conditionId);
+    /// @notice Emitted when a market is approved for Site creation
+    /// @param conditionId Polymarket condition ID that was approved
+    event MarketApproved(bytes32 indexed conditionId);
 
-    /**
-     * @notice Emitted when a market proposal is rejected
-     * @param conditionId Polymarket condition ID
-     **/
-    event MarketRejected(byte32 indexed conditionId);
+    /// @notice Emitted when a market proposal is rejected
+    /// @param conditionId Polymarket condition ID that was rejected
+    event MarketRejected(bytes32 indexed conditionId);
 
-    /**
-     * @notice Emitted when a new facotry is registered
-     * @param factory Address of the registered facotry
-     * @param version Version number
-     **/
-    event FactoryRegistered(address indexed factory, uint256 version);
+    /// @notice Emitted when a new factory is registered
+    /// @param factory ISiteFactory instance that was registered
+    /// @param version Version number of this factory
+    event FactoryRegistered(ISiteFactory indexed factory, uint256 version);
 
-    /**
-     * @notice Emitted when a new global default LTV is updated
-     * @param newDefaultLTV New default max loan-to-value in basis points
-     **/
-    event DefaultMaxLTVUpdated(uitn256 newDefaultLTV);
+    /// @notice Emitted when global default LTV is updated
+    /// @param newDefaultLTV New default maximum loan-to-value in basis points
+    event DefaultMaxLTVUpdated(uint256 newDefaultLTV);
 
-    /**
-     * @notice Emitted when global default liquidation threshold is updated
-     * @param newDefaultThreshold New default liquidation threshold in basis points
-     **/
+    /// @notice Emitted when global default liquidation threshold is updated
+    /// @param newDefaultThreshold New default liquidation threshold in basis points
     event DefaultLiquidationThresholdUpdated(uint256 newDefaultThreshold);
 
     /**
      * @notice Creates a new isolated lending Site for a Polymarket market
      * @dev Only callable by MARKET_CURATOR_ROLE. Market must be pre-approved via approveMarket().
      * @param conditionId Polymarket condition ID (unique identifier for the prediction market)
-     * @param oracle Address of the oracle contract
-     * @param interestRateModel Address of the interest rate model
-     * @param maxLtv Maximum LTV in basis points (e.g., 7500 = 75%)
+     * @param oracle Oracle contract for this market
+     * @param interestRateModel Interest rate model to use
+     * @param maxLtv Maximum loan-to-value ratio in basis points (e.g., 7500 = 75%)
      * @param liquidationThreshold Liquidation threshold in basis points (e.g., 8000 = 80%)
-     * @return site Instance of ISite
+     * @param hookReceiver Hook receiver for liquidations and extensions (can be address(0))
+     * @return site Newly created Site instance
      */
     function createSite(
         bytes32 conditionId,
-        address oracle,
-        address interestRateModel,
-        uint256 maxLTV,
-        uint256 liquidationThreshold
+        IPolymarketOracle oracle,
+        IInterestRateModel interestRateModel,
+        uint256 maxLtv,
+        uint256 liquidationThreshold,
+        IHookReceiver hookReceiver
     ) external returns (ISite site);
 
     /**
-     * @notice Gets the Site address for a given Polymarket condition
+     * @notice Gets the Site for a given Polymarket condition
      * @param conditionId Polymarket condition ID
      * @return ISite instance, or ISite(address(0)) if no Site exists for this condition
      */
     function getSite(bytes32 conditionId) external view returns (ISite);
 
     /**
-     * @notice Returns all deployed Site addresses
+     * @notice Returns all deployed Sites
      * @dev May be gas-intensive for large numbers of Sites. Use carefully in view functions.
      * @return Array of all ISite instances
      */
@@ -82,7 +83,7 @@ interface ISiteRepository {
     /**
      * @notice Checks if an address is a valid deployed Site
      * @param site Address to check
-     * @return True if address is a deployed Site
+     * @return True if address is a deployed Site, false otherwise
      */
     function isSite(address site) external view returns (bool);
 
@@ -92,7 +93,7 @@ interface ISiteRepository {
      * @param conditionId Polymarket condition ID to propose
      * @param oracle Proposed oracle for this market
      */
-    function purposeMarket(
+    function proposeMarket(
         bytes32 conditionId,
         IPolymarketOracle oracle
     ) external;
@@ -114,32 +115,32 @@ interface ISiteRepository {
     /**
      * @notice Checks if a market has been approved for Site creation
      * @param conditionId Polymarket condition ID
-     * @return True if approved
+     * @return True if approved, false otherwise
      */
     function isMarketApproved(bytes32 conditionId) external view returns (bool);
 
     /**
      * @notice Registers a new Site factory for protocol upgrades
      * @dev Only callable by owner. Allows multiple factory versions to coexist.
-     * @param factory Address of the factory contract
+     * @param factory ISiteFactory instance to register
      * @param version Version number for this factory (must be unique)
      */
-    function registerFactory(address factory, uint256 version) external;
+    function registerFactory(ISiteFactory factory, uint256 version) external;
 
     /**
-     * @notice Gets the current Site factory address
+     * @notice Gets the current Site factory
      * @return ISiteFactory instance
      */
     function siteFactory() external view returns (ISiteFactory);
 
     /**
-     * @notice Gets the tokens factory address
+     * @notice Gets the tokens factory
      * @return ITokensFactory instance
      */
     function tokensFactory() external view returns (ITokensFactory);
 
     /**
-     * @notice Gets the interest rate model factory address
+     * @notice Gets the interest rate model factory
      * @return IInterestRateModelFactory instance
      */
     function interestRateModelFactory()
@@ -174,32 +175,32 @@ interface ISiteRepository {
     function defaultLiquidationThreshold() external view returns (uint256);
 
     /**
-     * @notice Gets the configuration contract address
-     * @return Address of ISiteConfiguration implementation
+     * @notice Gets the configuration contract
+     * @return ISiteConfiguration instance
      */
     function configuration() external view returns (ISiteConfiguration);
 
     /**
-     * @notice Gets the oracle registry address
-     * @return Address of IOracleRegistry implementation
+     * @notice Gets the oracle registry
+     * @return IOracleRegistry instance
      */
     function oracleRegistry() external view returns (IOracleRegistry);
 
     /**
-     * @notice Gets the fee collector address
-     * @return Address of IFeeCollector implementation
+     * @notice Gets the fee collector
+     * @return IFeeCollector instance
      */
     function feeCollector() external view returns (IFeeCollector);
 
     /**
-     * @notice Gets the access control address
-     * @return Address of IAccessControl implementation
+     * @notice Gets the access control
+     * @return IAccessControl instance
      */
     function accessControl() external view returns (IAccessControl);
 
     /**
-     * @notice Gets the guarded launch address
-     * @return Address of IGuardedLaunch implementation
+     * @notice Gets the guarded launch
+     * @return IGuardedLaunch instance
      */
     function guardedLaunch() external view returns (IGuardedLaunch);
 
