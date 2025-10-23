@@ -1,17 +1,10 @@
 {
   "extends": "solhint:all",
   "rules": {
-    "func-visibility": [
-      "error",
-      {
-        "ignoreConstructors": true
-      }
-    ],
-    "no-console": ["error"],
-    "max-line-length": "110",
+    "func-visibility": ["error", { "ignoreConstructors": true }],
+    "max-line-length": ["error", 110],
     "comprehensive-interface": "off",
     "no-empty-blocks": "off",
-    "contract-name-camelcase": "off",
     "not-rely-on-time": "off",
     "no-global-import": "off",
     "var-name-mixedcase": "off",
