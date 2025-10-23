@@ -81,7 +81,7 @@ interface IBaseSite {
     );
 
     /// @notice Emitted when a user borrows
-    /// @param asset Address of the asset borrowed (always USDC for PolyLend)
+    /// @param asset Address of the asset borrowed
     /// @param borrower Address of the user borrowing
     /// @param amount Amount of underlying tokens borrowed
     event Borrow(
@@ -223,7 +223,7 @@ interface IBaseSite {
 
     /**
      * @notice Calculates maximum amount a user can borrow while staying solvent
-     * @param asset Address of the asset to borrow (USDC for PolyLend)
+     * @param asset Address of the asset to borrow
      * @param user Address of the user
      * @return Maximum borrowable amount in underlying tokens
      */

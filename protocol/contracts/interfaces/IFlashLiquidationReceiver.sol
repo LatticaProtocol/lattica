@@ -5,6 +5,7 @@ interface IFlashLiquidationReceiver {
     /**
      * @notice Called during flash liquidation after collateral is sent
      * @dev Must repay debt by end of callback or tx reverts
+     * @dev All array arguments (assets, amounts, debts) MUST be of equal length.
      * @param user User being liquidated
      * @param collateralAssets Array of collateral assets received
      * @param collateralAmounts Array of collateral amounts received

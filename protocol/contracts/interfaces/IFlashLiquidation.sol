@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./IFlashLiquidationReceiver.sol";
 import "./IHookReceiver.sol";
-import "./IFlashLiquidatorReciever.sol"
 
 interface IFlashLiquidation is IHookReceiver {
     /**
@@ -10,7 +10,6 @@ interface IFlashLiquidation is IHookReceiver {
      * @dev Process: 1) Send collateral, 2) Callback, 3) Verify debt repaid
      * @param user User to liquidate
      * @param collateralAsset Collateral to seize
-     * @param debtAsset Debt to repay
      * @param maxDebtToCover Maximum debt to repay
      * @param receiver Address implementing IFlashLiquidationReceiver
      * @param liquidationData Arbitrary data to pass to callback
@@ -20,9 +19,8 @@ interface IFlashLiquidation is IHookReceiver {
     function flashLiquidate(
         address user,
         address collateralAsset,
-        address debtAsset,
         uint256 maxDebtToCover,
-        address receiver,
+        IFlashLiquidationReceiver receiver,
         bytes calldata liquidationData
     ) external returns (uint256 collateralSeized, uint256 debtRepaid);
 

@@ -42,8 +42,8 @@ interface IPartialLiquidation is IHookReceiver {
     /**
      * @notice Liquidates an insolvent position
      * @dev Main entry point for liquidators. Not called via hooks.
+     * @dev Debt asset is implicitly site.borrowToken() (USDC)
      * @param collateralAsset Asset to seize (YES or NO token)
-     * @param debtAsset Asset to repay (USDC)
      * @param borrower User being liquidated
      * @param maxDebtToCover Maximum debt liquidator wants to repay
      * @param receiveShareToken True to receive sTokens, false for underlying
@@ -52,7 +52,6 @@ interface IPartialLiquidation is IHookReceiver {
      */
     function liquidationCall(
         address collateralAsset,
-        address debtAsset,
         address borrower,
         uint256 maxDebtToCover,
         bool receiveShareToken

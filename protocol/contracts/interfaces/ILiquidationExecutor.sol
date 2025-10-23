@@ -12,7 +12,6 @@ interface ILiquidationExecutor {
         ISite site; // Site where liquidation occurs
         address user; // User to liquidate
         address collateralAsset; // Collateral to seize
-        address debtAsset; // Debt to repay (USDC)
         uint256 maxDebtToCover; // Max debt liquidator wants to cover
         address swapper; // ISwapper instance for DEX integration
         bytes swapData; // Swap parameters

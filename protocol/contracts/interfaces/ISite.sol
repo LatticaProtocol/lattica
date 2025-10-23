@@ -38,26 +38,18 @@ interface ISite is IBaseSite {
     /**
      * @notice Borrows USDC against collateral
      * @dev Only USDC can be borrowed. Fails if borrow would make user insolvent.
-     * @param asset Address of asset to borrow (must be USDC)
      * @param amount Amount of underlying tokens to borrow
      * @return shares Amount of debt shares minted to user
      */
-    function borrow(
-        address asset,
-        uint256 amount
-    ) external returns (uint256 shares);
+    function borrow(uint256 amount) external returns (uint256 shares);
 
     /**
      * @notice Repays borrowed USDC
      * @dev User must approve Site to transfer USDC first
-     * @param asset Address of asset to repay (USDC)
      * @param amount Amount of underlying tokens to repay
      * @return shares Amount of debt shares burned
      */
-    function repay(
-        address asset,
-        uint256 amount
-    ) external returns (uint256 shares);
+    function repay(uint256 amount) external returns (uint256 shares);
 
     /**
      * @notice Liquidates an insolvent user's position
