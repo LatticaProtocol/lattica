@@ -40,3 +40,13 @@ repos:
     rev: 24.8.0
     hooks:
       - id: black
+
+  # Solidity
+  - repo: https://github.com/protofire/solhint
+    rev: v6.0.1
+    hooks:
+      - id: solhint
+        name: solhint
+        entry: bash -lc 'cd protocol && pnpm exec solhint -f unix "contracts/**/*.sol"'
+        language: system
+        pass_filenames: false

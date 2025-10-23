@@ -173,6 +173,9 @@ importers:
       rimraf:
         specifier: 'catalog:'
         version: 6.0.1
+      solhint:
+        specifier: ^6.0.1
+        version: 6.0.1(typescript@5.9.2)
       turbo:
         specifier: 'catalog:'
         version: 2.5.8
@@ -354,9 +357,6 @@ importers:
       prettier-plugin-solidity:
         specifier: ^2.1.0
         version: 2.1.0(prettier@3.6.2)
-      solhint:
-        specifier: ^6.0.1
-        version: 6.0.1(typescript@5.9.2)
 
 packages:
 

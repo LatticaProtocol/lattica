@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "prettier": "catalog:",
-    "prettier-plugin-solidity": "^2.1.0",
-    "solhint": "^6.0.1"
+    "prettier-plugin-solidity": "^2.1.0"
   }
 }
