@@ -3,10 +3,10 @@ pragma solidity ^0.8.20;
 
 interface IPolymarketCTF {
     /**
-     * @notice Gets token balance for a single token ID
+     * @notice Gets balance of a specific token
      * @param account Address to query
-     * @param tokenId Token ID (position ID in CTF)
-     * @return Balance
+     * @param tokenId Token ID (condition ID + position)
+     * @return Balance of the token
      */
     function balanceOf(
         address account,
@@ -14,7 +14,7 @@ interface IPolymarketCTF {
     ) external view returns (uint256);
 
     /**
-     * @notice Gets balances for multiple token IDs
+     * @notice Gets balances for multiple tokens
      * @param accounts Array of addresses
      * @param tokenIds Array of token IDs
      * @return Array of balances
@@ -25,7 +25,7 @@ interface IPolymarketCTF {
     ) external view returns (uint256[] memory);
 
     /**
-     * @notice Transfers tokens (ERC1155)
+     * @notice Transfers a single token
      * @param from Source address
      * @param to Destination address
      * @param id Token ID
@@ -41,7 +41,7 @@ interface IPolymarketCTF {
     ) external;
 
     /**
-     * @notice Batch transfers tokens
+     * @notice Transfers multiple tokens
      * @param from Source address
      * @param to Destination address
      * @param ids Array of token IDs
@@ -57,11 +57,11 @@ interface IPolymarketCTF {
     ) external;
 
     /**
-     * @notice Gets payout numerator for outcome index
-     * @dev Used to determine resolution (which outcome won)
-     * @param conditionId Polymarket condition ID
-     * @param index Outcome index (0 for NO, 1 for YES typically)
-     * @return Payout numerator
+     * @notice Gets payout numerator for a position
+     * @dev After resolution, determines how much each position gets (0 or 1e6)
+     * @param conditionId Condition ID
+     * @param index Position index (0 = NO, 1 = YES typically)
+     * @return Payout numerator (0 for losers, 1e6 for winners)
      */
     function payoutNumerators(
         bytes32 conditionId,
@@ -69,8 +69,8 @@ interface IPolymarketCTF {
     ) external view returns (uint256);
 
     /**
-     * @notice Checks if condition is resolved in CTF
-     * @param conditionId Polymarket condition ID
+     * @notice Checks if condition is resolved
+     * @param conditionId Condition ID
      * @return True if resolved
      */
     function isResolved(bytes32 conditionId) external view returns (bool);

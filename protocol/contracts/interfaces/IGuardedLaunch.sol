@@ -4,50 +4,59 @@ pragma solidity ^0.8.20;
 import "./ISite.sol";
 
 interface IGuardedLaunch {
-    /// @notice Emitted when global pause is triggered
+    /// @notice Emitted when global pause state changes
+    /// @param caller Address that triggered pause
     event GlobalPaused(address indexed caller);
 
-    /// @notice Emitted when global pause is lifted
+    /// @notice Emitted when global unpause occurs
+    /// @param caller Address that triggered unpause
     event GlobalUnpaused(address indexed caller);
 
-    /// @notice Emitted when specific Site/asset is paused
+    /// @notice Emitted when Site-specific pause occurs
+    /// @param site ISite that was paused
+    /// @param asset Asset that was paused
     event SitePaused(ISite indexed site, address indexed asset);
 
-    /// @notice Emitted when specific Site/asset is unpaused
+    /// @notice Emitted when Site-specific unpause occurs
+    /// @param site ISite that was unpaused
+    /// @param asset Asset that was unpaused
     event SiteUnpaused(ISite indexed site, address indexed asset);
 
-    /// @notice Emitted when deposit limits are toggled
+    /// @notice Emitted when max liquidity limit enabled/disabled
+    /// @param enabled True if enabled
     event MaxLiquidityLimitEnabled(bool enabled);
 
-    /// @notice Emitted when Site deposit limit is set
+    /// @notice Emitted when Site deposit limit set
+    /// @param site ISite with new limit
+    /// @param maxDeposits New maximum deposit limit
     event SiteMaxDepositsSet(ISite indexed site, uint256 maxDeposits);
 
     /**
-     * @notice Pauses/unpauses all Sites
-     * @dev Only callable by EMERGENCY_ADMIN_ROLE. Nuclear option.
+     * @notice Sets global pause state
+     * @dev Only callable by EMERGENCY_ADMIN_ROLE. Pauses all Sites.
      * @param paused True to pause, false to unpause
      */
     function setGlobalPause(bool paused) external;
 
     /**
      * @notice Checks if protocol is globally paused
-     * @return True if paused
+     * @return True if globally paused
      */
     function isGlobalPaused() external view returns (bool);
 
     /**
      * @notice Pauses specific Site and asset
-     * @dev Only callable by EMERGENCY_ADMIN_ROLE
-     * @param site ISite instance to pause
-     * @param asset Asset address to pause
+     * @dev Only callable by EMERGENCY_ADMIN_ROLE. More granular than global pause.
+     * @param site ISite to pause
+     * @param asset Asset to pause (or address(0) for all assets)
      * @param paused True to pause, false to unpause
      */
     function setSitePause(ISite site, address asset, bool paused) external;
 
     /**
      * @notice Checks if Site/asset is paused
-     * @param site ISite instance
-     * @param asset Asset address
+     * @param site ISite to check
+     * @param asset Asset to check
      * @return True if paused
      */
     function isSitePaused(
@@ -57,28 +66,29 @@ interface IGuardedLaunch {
 
     /**
      * @notice Enables/disables deposit limits
-     * @dev Only callable by owner. Used during guarded launch.
+     * @dev For gradual launch. Start with limits, remove as confidence grows.
      * @param enabled True to enable limits
      */
     function setLimitedMaxLiquidity(bool enabled) external;
 
     /**
-     * @notice Sets default deposit limit for new Sites
-     * @param limit Maximum total deposits in USD value
+     * @notice Sets default deposit limit for all Sites
+     * @dev Applied to Sites that don't have custom limits
+     * @param limit Maximum deposits in USDC value
      */
     function setDefaultSiteMaxDepositsLimit(uint256 limit) external;
 
     /**
-     * @notice Sets deposit limit for specific Site
-     * @param site ISite instance
-     * @param limit Maximum total deposits in USD value
+     * @notice Sets custom deposit limit for specific Site
+     * @param site ISite to set limit for
+     * @param limit Maximum deposits in USDC value
      */
     function setSiteMaxDepositsLimit(ISite site, uint256 limit) external;
 
     /**
-     * @notice Gets current deposit limit for Site
-     * @param site ISite instance
-     * @return Maximum deposits in USD value
+     * @notice Gets maximum deposit value for a Site
+     * @param site ISite to query
+     * @return Maximum deposits allowed (in USDC value)
      */
     function getMaxSiteDepositsValue(
         ISite site
@@ -86,10 +96,10 @@ interface IGuardedLaunch {
 
     /**
      * @notice Checks if deposit would exceed limit
-     * @param site ISite instance
+     * @param site ISite to check
      * @param asset Asset being deposited
-     * @param amount Amount being deposited
-     * @return True if would exceed limit
+     * @param amount Amount to deposit
+     * @return True if deposit exceeds limit
      */
     function isDepositLimitReached(
         ISite site,

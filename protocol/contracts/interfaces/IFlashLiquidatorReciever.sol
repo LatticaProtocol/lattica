@@ -3,19 +3,21 @@ pragma solidity ^0.8.20;
 
 interface IFlashLiquidationReceiver {
     /**
-     * @notice Callback executed during flash liquidation
-     * @dev Must repay debt by end of this function or tx reverts
-     * @param user Address being liquidated
-     * @param assets Array of assets involved (debt + collateral)
-     * @param receivedCollaterals Array of collateral amounts received
-     * @param shareAmountsToRepaid Array of debt shares that must be repaid
-     * @param flashReceiverData Arbitrary data passed by liquidator
+     * @notice Called during flash liquidation after collateral is sent
+     * @dev Must repay debt by end of callback or tx reverts
+     * @param user User being liquidated
+     * @param collateralAssets Array of collateral assets received
+     * @param collateralAmounts Array of collateral amounts received
+     * @param debtAssets Array of debt assets to repay
+     * @param debtAmounts Array of debt amounts to repay
+     * @param liquidationData Arbitrary data passed by liquidator
      */
-    function siteLiquidationCallback(
+    function executeFlashLiquidation(
         address user,
-        address[] calldata assets,
-        uint256[] calldata receivedCollaterals,
-        uint256[] calldata shareAmountsToRepaid,
-        bytes calldata flashReceiverData
+        address[] calldata collateralAssets,
+        uint256[] calldata collateralAmounts,
+        address[] calldata debtAssets,
+        uint256[] calldata debtAmounts,
+        bytes calldata liquidationData
     ) external;
 }

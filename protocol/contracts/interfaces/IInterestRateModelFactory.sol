@@ -4,29 +4,32 @@ pragma solidity ^0.8.20;
 import "./IInterestRateModel.sol";
 
 interface IInterestRateModelFactory {
-    /// @notice Emitted when new model is created
+    /**
+     * @notice Interest rate model parameters
+     * @dev All parameters for kinked rate curve
+     */
+    struct ModelParameters {
+        uint256 baseRatePerYear; // Base rate at 0% utilization
+        uint256 multiplierPerYear; // Rate increase per utilization before kink
+        uint256 jumpMultiplierPerYear; // Rate increase per utilization after kink
+        uint256 kink; // Utilization point where slope changes (basis points)
+    }
+
+    /// @notice Emitted when new model created
+    /// @param model IInterestRateModel instance
+    /// @param creator Address that created the model
     event InterestRateModelCreated(
         IInterestRateModel indexed model,
         address indexed creator
     );
 
     /**
-     * @notice Interest rate model parameters
-     * @dev Standard jump rate model parameters
-     */
-    struct ModelParameters {
-        uint256 baseRatePerYear; // Base interest rate (at 0% utilization)
-        uint256 multiplierPerYear; // Rate of increase before kink
-        uint256 jumpMultiplierPerYear; // Rate of increase after kink
-        uint256 kink; // Utilization point where rate jumps
-    }
-
-    /**
-     * @notice Creates interest rate model with custom parameters
-     * @param baseRatePerYear Base rate in ray
-     * @param multiplierPerYear Multiplier in ray
-     * @param jumpMultiplierPerYear Jump multiplier in ray
-     * @param kink Kink utilization in ray (e.g., 0.8e27 = 80%)
+     * @notice Creates custom interest rate model
+     * @dev Anyone can create models with custom parameters
+     * @param baseRatePerYear Base rate (ray format, 1e27 = 100%)
+     * @param multiplierPerYear Multiplier before kink (ray)
+     * @param jumpMultiplierPerYear Multiplier after kink (ray)
+     * @param kink Kink point in basis points (8000 = 80%)
      * @return Deployed IInterestRateModel instance
      */
     function createInterestRateModel(
@@ -37,7 +40,8 @@ interface IInterestRateModelFactory {
     ) external returns (IInterestRateModel);
 
     /**
-     * @notice Creates model with default parameters
+     * @notice Creates interest rate model with default parameters
+     * @dev Convenience function for standard curve
      * @return Deployed IInterestRateModel instance
      */
     function createDefaultInterestRateModel()
@@ -45,8 +49,9 @@ interface IInterestRateModelFactory {
         returns (IInterestRateModel);
 
     /**
-     * @notice Gets default parameter values
-     * @return Default parameters struct
+     * @notice Gets default model parameters
+     * @dev Returns recommended parameters for most Sites
+     * @return ModelParameters struct with defaults
      */
     function getDefaultParameters()
         external

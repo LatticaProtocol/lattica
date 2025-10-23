@@ -3,6 +3,10 @@ pragma solidity ^0.8.20;
 
 interface ISwapper {
     /// @notice Emitted when swap executes
+    /// @param tokenIn Input token address
+    /// @param tokenOut Output token address
+    /// @param amountIn Amount of input tokens
+    /// @param amountOut Amount of output tokens
     event Swap(
         address indexed tokenIn,
         address indexed tokenOut,
@@ -11,14 +15,14 @@ interface ISwapper {
     );
 
     /**
-     * @notice Swaps exact amount in for minimum amount out
-     * @dev Used when liquidator has exact collateral amount to sell
-     * @param tokenIn Address of input token (YES/NO shares)
-     * @param tokenOut Address of output token (USDC)
+     * @notice Swaps exact input amount
+     * @dev Specify input amount, receive at least minAmountOut
+     * @param tokenIn Input token address
+     * @param tokenOut Output token address (typically USDC)
      * @param amountIn Exact amount of input tokens
-     * @param minAmountOut Minimum acceptable output (slippage protection)
-     * @param data DEX-specific calldata
-     * @return amountOut Actual output amount received
+     * @param minAmountOut Minimum output tokens (slippage protection)
+     * @param data DEX-specific swap data (path, pool fees, etc.)
+     * @return amountOut Actual amount of output tokens received
      */
     function swapAmountIn(
         address tokenIn,
@@ -29,14 +33,14 @@ interface ISwapper {
     ) external returns (uint256 amountOut);
 
     /**
-     * @notice Swaps maximum amount in for exact amount out
-     * @dev Used when liquidator needs exact USDC amount to repay debt
-     * @param tokenIn Address of input token
-     * @param tokenOut Address of output token
-     * @param amountOut Exact amount of output tokens needed
-     * @param maxAmountIn Maximum input tokens willing to spend
-     * @param data DEX-specific calldata
-     * @return amountIn Actual input amount used
+     * @notice Swaps for exact output amount
+     * @dev Specify output amount, spend at most maxAmountIn
+     * @param tokenIn Input token address
+     * @param tokenOut Output token address
+     * @param amountOut Exact amount of output tokens desired
+     * @param maxAmountIn Maximum input tokens to spend
+     * @param data DEX-specific swap data
+     * @return amountIn Actual amount of input tokens spent
      */
     function swapAmountOut(
         address tokenIn,
@@ -47,18 +51,19 @@ interface ISwapper {
     ) external returns (uint256 amountIn);
 
     /**
-     * @notice Gets the address to approve for token spending
-     * @dev Different DEXs have different router addresses
-     * @return Address to approve tokens to
+     * @notice Gets the address to approve for swaps
+     * @dev Liquidators must approve this address to spend tokens
+     * @return Address to approve (DEX router address)
      */
     function spenderToApprove() external view returns (address);
 
     /**
-     * @notice Quotes output amount for input amount
+     * @notice Quotes output amount for given input
+     * @dev Off-chain query for expected swap output
      * @param tokenIn Input token address
      * @param tokenOut Output token address
-     * @param amountIn Input amount
-     * @return Expected output amount
+     * @param amountIn Amount of input tokens
+     * @return Expected amount of output tokens
      */
     function getAmountOut(
         address tokenIn,
@@ -67,11 +72,12 @@ interface ISwapper {
     ) external view returns (uint256);
 
     /**
-     * @notice Quotes input amount for output amount
+     * @notice Quotes input amount for given output
+     * @dev Off-chain query for expected swap input
      * @param tokenIn Input token address
      * @param tokenOut Output token address
-     * @param amountOut Desired output amount
-     * @return Required input amount
+     * @param amountOut Desired amount of output tokens
+     * @return Expected amount of input tokens needed
      */
     function getAmountIn(
         address tokenIn,

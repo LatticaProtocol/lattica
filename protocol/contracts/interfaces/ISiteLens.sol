@@ -5,24 +5,24 @@ import "./ISite.sol";
 
 interface ISiteLens {
     /**
-     * @notice User's position in a single Site
-     * @dev Complete portfolio view for one market
+     * @notice User's complete portfolio across a Site
+     * @dev All position data in one struct
      */
     struct UserPortfolio {
-        ISite site; // ISite instance
+        address site; // Site address
         bytes32 conditionId; // Polymarket condition ID
-        uint256 yesCollateral; // YES collateral balance
-        uint256 noCollateral; // NO collateral balance
-        uint256 usdcDebt; // USDC debt balance
-        uint256 healthFactor; // Health factor (1e18 = 100%)
+        uint256 yesCollateral; // YES token collateral
+        uint256 noCollateral; // NO token collateral
+        uint256 usdcDebt; // USDC debt
+        uint256 healthFactor; // Health factor (10000 = 100%)
         uint256 ltv; // Current LTV in basis points
     }
 
     /**
      * @notice Gets user's positions across all Sites
-     * @dev Aggregates portfolio for UI display
-     * @param user User address
-     * @return Array of user positions
+     * @dev Aggregates data from all Sites user has positions in
+     * @param user User to query
+     * @return Array of UserPortfolio structs
      */
     function getUserPositionAcrossSites(
         address user
@@ -30,20 +30,21 @@ interface ISiteLens {
 
     /**
      * @notice Gets user's overall health
-     * @dev Aggregates health across all Sites
-     * @param user User address
-     * @return healthFactor Weighted average health factor
-     * @return isSolvent True if user is solvent everywhere
+     * @dev Aggregates across all Sites
+     * @param user User to query
+     * @return healthFactor Overall health factor
+     * @return isSolvent True if solvent across all Sites
      */
     function getUserHealth(
         address user
     ) external view returns (uint256 healthFactor, bool isSolvent);
 
     /**
-     * @notice Gets maximum withdrawable amount
-     * @param site ISite instance
+     * @notice Calculates maximum withdrawable amount
+     * @dev Considers solvency constraints
+     * @param site ISite to query
      * @param asset Asset to withdraw
-     * @param user User address
+     * @param user User to query
      * @return Maximum amount user can withdraw while staying solvent
      */
     function getMaxWithdrawable(
@@ -53,10 +54,10 @@ interface ISiteLens {
     ) external view returns (uint256);
 
     /**
-     * @notice Gets maximum borrowable amount
-     * @param site ISite instance
-     * @param user User address
-     * @return Maximum USDC user can borrow while staying solvent
+     * @notice Calculates maximum borrowable amount
+     * @param site ISite to query
+     * @param user User to query
+     * @return Maximum amount user can borrow while staying solvent
      */
     function getMaxBorrowable(
         ISite site,
@@ -65,11 +66,11 @@ interface ISiteLens {
 
     /**
      * @notice Gets all APYs for a Site
-     * @param site ISite instance
-     * @return yesSupplyAPY YES collateral supply APY in basis points
-     * @return noSupplyAPY NO collateral supply APY in basis points
-     * @return usdcSupplyAPY USDC supply APY in basis points
-     * @return usdcBorrowAPY USDC borrow APY in basis points
+     * @param site ISite to query
+     * @return yesSupplyAPY YES collateral supply APY
+     * @return noSupplyAPY NO collateral supply APY
+     * @return usdcSupplyAPY USDC supply APY
+     * @return usdcBorrowAPY USDC borrow APY
      */
     function getSiteAPYs(
         ISite site
@@ -84,25 +85,25 @@ interface ISiteLens {
         );
 
     /**
-     * @notice Gets total value locked in Site
-     * @param site ISite instance
-     * @return TVL in USD
+     * @notice Gets total value locked in a Site
+     * @param site ISite to query
+     * @return Total value locked in USDC terms
      */
     function getTotalValueLocked(ISite site) external view returns (uint256);
 
     /**
-     * @notice Gets total protocol TVL
-     * @return Total TVL across all Sites in USD
+     * @notice Gets protocol-wide TVL
+     * @return Total value locked across all Sites
      */
     function getProtocolTVL() external view returns (uint256);
 
     /**
-     * @notice Previews liquidation amounts
-     * @param site ISite instance
+     * @notice Previews liquidation outcome
+     * @param site ISite where liquidation would occur
      * @param user User to liquidate
-     * @param repayAmount Amount of debt to repay
-     * @return seizedCollateral Amount of collateral liquidator receives
-     * @return liquidationBonus Bonus amount (penalty from user)
+     * @param repayAmount Debt amount to repay
+     * @return seizedCollateral Amount of collateral that would be seized
+     * @return liquidationBonus Bonus liquidator would receive
      */
     function getLiquidationPreview(
         ISite site,
@@ -115,9 +116,9 @@ interface ISiteLens {
 
     /**
      * @notice Checks if user is liquidatable
-     * @param site ISite instance
-     * @param user User address
-     * @return True if user can be liquidated
+     * @param site ISite to check
+     * @param user User to check
+     * @return True if user is insolvent and can be liquidated
      */
     function isLiquidatable(
         ISite site,

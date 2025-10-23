@@ -6,37 +6,50 @@ import "./ISite.sol";
 interface IHookReceiver {
     /**
      * @notice Called before a protocol action executes
-     * @dev Can revert to prevent the action. Used for validation and eligibility checks.
-     * @param silo ISite where action is happening
-     * @param action Encoded action type (see Hook library)
+     * @dev Can revert to prevent the action. Must be gas-efficient.
+     * @param site ISite where action is happening
+     * @param action Action ID (see Hook library)
      * @param inputData ABI-encoded action-specific data
      */
     function beforeAction(
-        ISite silo,
+        ISite site,
         uint256 action,
         bytes calldata inputData
     ) external;
 
     /**
      * @notice Called after a protocol action completes
-     * @dev Cannot revert core action (already completed). Used for notifications and follow-up logic.
-     * @param silo ISite where action happened
-     * @param action Encoded action type (see Hook library)
+     * @dev Cannot revert core action (already completed). Used for notifications.
+     * @param site ISite where action happened
+     * @param action Action ID (see Hook library)
      * @param inputData ABI-encoded action-specific data
      */
     function afterAction(
-        ISite silo,
+        ISite site,
         uint256 action,
         bytes calldata inputData
     ) external;
 
     /**
-     * @notice Gets hook configuration
-     * @dev Returns bitmask of which actions have before/after hooks enabled
+     * @notice Returns hook configuration for a Site
+     * @dev Sites cache this configuration for gas efficiency
+     * @param site ISite to get configuration for
      * @return hooksBefore Bitmask of actions with beforeAction hooks
      * @return hooksAfter Bitmask of actions with afterAction hooks
      */
     function hookReceiverConfig(
-        ISite silo
+        ISite site
     ) external view returns (uint24 hooksBefore, uint24 hooksAfter);
+
+    /**
+     * @notice Returns hook receiver version
+     * @return Version string (e.g., "1.0.0")
+     */
+    function version() external pure returns (string memory);
+
+    /**
+     * @notice Returns hook receiver name
+     * @return Name string (e.g., "PartialLiquidation")
+     */
+    function name() external pure returns (string memory);
 }
