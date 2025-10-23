@@ -2,9 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "./IBaseSite.sol";
-import "./IInterestRateModel.sol";
-import "./IHookReceiver.sol";
 import "./IFlashLiquidationReceiver.sol";
+import "./IHookReceiver.sol";
+import "./IInterestRateModel.sol";
 
 interface ISite is IBaseSite {
     /**

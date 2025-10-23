@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
-import "./ISite.sol";
 import "./IInterestRateModel.sol";
+import "./ISite.sol";
 
 interface ISiteConfig {
     /**

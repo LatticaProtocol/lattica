@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
+import "./IHookReceiver.sol";
+import "./IInterestRateModel.sol";
 import "./ISite.sol";
 import "./ISiteRepository.sol";
-import "./IInterestRateModel.sol";
-import "./IHookReceiver.sol";
 
 interface ISiteFactory {
     /// @notice Emitted when a new Site is deployed

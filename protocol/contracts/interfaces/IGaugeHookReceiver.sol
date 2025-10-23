@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
-import "./IHookReceiver.sol";
 import "./IGauge.sol";
+import "./IHookReceiver.sol";
 
 interface IGaugeHookReceiver is IHookReceiver {
     /// @notice Emitted when gauge is set for a Site

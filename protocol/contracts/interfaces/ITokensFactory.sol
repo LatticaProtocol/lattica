@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
-import "./ISite.sol";
-import "./IShareToken.sol";
 import "./IERC20R.sol";
+import "./IShareToken.sol";
+import "./ISite.sol";
 
 interface ITokensFactory {
     /// @notice Type of share token being deployed
