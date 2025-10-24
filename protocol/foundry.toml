@@ -2,7 +2,7 @@
 src = "contracts"
 test = "test"
 out = "out"
-libs = ["lib", "node_modules", "dependencies"]
+libs = ["lib", "dependencies"]
 
 [dependencies]
 forge-std = "1.11.0"
