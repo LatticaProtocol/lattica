@@ -1,4 +1,2 @@
-@openzeppelin-contracts-5.5.0-rc.1/=dependencies/@openzeppelin-contracts-5.5.0-rc.1/
-@openzeppelin/contracts/=node_modules/@lattica/soldeps/vendor/@openzeppelin-contracts-5.5.0-rc.1/
-forge-std-1.11.0/=dependencies/forge-std-1.11.0/
-forge-std/=node_modules/@lattica/soldeps/vendor/forge-std-1.11.0/src/
+@openzeppelin/contracts/=dependencies/@openzeppelin-contracts-5.5.0-rc.1/
+forge-std/=dependencies/forge-std-1.11.0/src/
