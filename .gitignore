@@ -44,8 +44,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Soldeer
+# Soldeer/Solidity
 dependencies
+soljson-*.js
 
 # Misc
 .DS_Store
