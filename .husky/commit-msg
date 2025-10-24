@@ -1,0 +1,2 @@
+# shellcheck disable=SC2148 # husky requires no shebang
+pnpm dlx commitlint --edit "$1"

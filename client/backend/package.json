@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target bun",
     "dev": "bun run --hot src/index.ts",
@@ -13,18 +19,20 @@
     "db:clean": "tsx ./src/db/scripts/clean.ts"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.2",
-    "dotenv": "^17.2.3",
-    "drizzle-orm": "^0.44.6",
-    "hono": "^4.9.12"
+    "@neondatabase/serverless": "catalog:",
+    "dotenv": "catalog:",
+    "drizzle-orm": "catalog:",
+    "hono": "catalog:"
   },
   "devDependencies": {
     "@lattica/eslint": "workspace:*",
     "@lattica/tsconfig": "workspace:*",
     "@types/bun": "latest",
-    "eslint": "^9.34.0",
-    "@types/node": "latest",
-    "drizzle-kit": "^0.31.5",
-    "tsx": "^4.20.6"
+    "eslint": "catalog:",
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:",
+    "tsx": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
   }
 }

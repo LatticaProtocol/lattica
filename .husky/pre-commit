@@ -1,0 +1,10 @@
+# shellcheck disable=SC2148 # husky requires no shebang
+
+# JS/TS tasks
+echo "🔧 Running pre-commit checks (JS/TS linting & formatting)..."
+if pnpm exec lint-staged; then
+    echo "✅ All pre-commit checks passed!"
+else
+    echo "❌ Some pre-commit checks failed."
+    exit 1
+fi

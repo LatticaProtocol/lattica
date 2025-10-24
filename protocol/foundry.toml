@@ -1,0 +1,9 @@
+[profile.default]
+src = "contracts"
+test = "test"
+out = "out"
+libs = ["lib", "dependencies"]
+
+[dependencies]
+forge-std = "1.11.0"
+"@openzeppelin-contracts" = "5.5.0-rc.1"

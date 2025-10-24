@@ -10,15 +10,22 @@
     "db:generate": "pnpm --filter @lattica/backend db:generate",
     "db:migrate": "pnpm --filter @lattica/backend db:migrate",
     "db:seed": "pnpm --filter @lattica/backend db:seed",
-    "db:studio": "pnpm --filter @lattica/backend db:studio"
+    "db:studio": "pnpm --filter @lattica/backend db:studio",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "prettier": "^3.6.2",
-    "turbo": "^2.5.8",
-    "typescript": "5.9.2"
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "neonctl": "catalog:",
+    "prettier": "catalog:",
+    "rimraf": "catalog:",
+    "solhint": "^6.0.1",
+    "turbo": "catalog:"
   },
   "packageManager": "pnpm@10.18.3",
   "engines": {
-    "node": ">=20.20.0"
+    "node": ">=22.20.0"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "extends": "solhint:all",
+  "rules": {
+    "func-visibility": ["error", { "ignoreConstructors": true }],
+    "max-line-length": ["error", 110],
+    "comprehensive-interface": "off",
+    "no-empty-blocks": "off",
+    "not-rely-on-time": "off",
+    "no-global-import": "off",
+    "var-name-mixedcase": "off",
+    "compiler-version": ["error", ">=0.8.0"]
+  }
+}
