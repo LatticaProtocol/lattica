@@ -11,11 +11,7 @@ interface ISiteFactory {
     /// @param site ISite instance of deployed contract
     /// @param conditionId Polymarket condition ID
     /// @param version Factory version used
-    event SiteDeployed(
-        ISite indexed site,
-        bytes32 indexed conditionId,
-        uint256 version
-    );
+    event SiteDeployed(ISite indexed site, bytes32 indexed conditionId, uint256 version);
 
     /**
      * @notice Deploys a new Site contract

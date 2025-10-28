@@ -11,22 +11,14 @@ interface IGauge {
     /// @param newBalance New balance
     /// @param timestamp Update timestamp
     event UserBalanceUpdated(
-        ISite indexed site,
-        address indexed user,
-        uint256 oldBalance,
-        uint256 newBalance,
-        uint256 timestamp
+        ISite indexed site, address indexed user, uint256 oldBalance, uint256 newBalance, uint256 timestamp
     );
 
     /// @notice Emitted when user claims rewards
     /// @param user User claiming rewards
     /// @param rewardToken Token being claimed
     /// @param amount Amount claimed
-    event RewardClaimed(
-        address indexed user,
-        address indexed rewardToken,
-        uint256 amount
-    );
+    event RewardClaimed(address indexed user, address indexed rewardToken, uint256 amount);
 
     /**
      * @notice Updates user balance in gauge
@@ -35,11 +27,7 @@ interface IGauge {
      * @param user User whose balance changed
      * @param newBalance New balance of share tokens
      */
-    function updateUserBalance(
-        ISite site,
-        address user,
-        uint256 newBalance
-    ) external;
+    function updateUserBalance(ISite site, address user, uint256 newBalance) external;
 
     /**
      * @notice Handles transfer notification
@@ -49,12 +37,7 @@ interface IGauge {
      * @param to Recipient (0 for burn)
      * @param amount Amount transferred
      */
-    function notifyTransfer(
-        ISite site,
-        address from,
-        address to,
-        uint256 amount
-    ) external;
+    function notifyTransfer(ISite site, address from, address to, uint256 amount) external;
 
     /**
      * @notice Gets user's voting power
@@ -70,19 +53,14 @@ interface IGauge {
      * @param user User address
      * @return User's share token balance tracked by gauge
      */
-    function getUserBalance(
-        ISite site,
-        address user
-    ) external view returns (uint256);
+    function getUserBalance(ISite site, address user) external view returns (uint256);
 
     /**
      * @notice Claims pending rewards for caller
      * @return rewardTokens Array of reward token addresses
      * @return amounts Array of amounts claimed
      */
-    function claimRewards()
-        external
-        returns (address[] memory rewardTokens, uint256[] memory amounts);
+    function claimRewards() external returns (address[] memory rewardTokens, uint256[] memory amounts);
 
     /**
      * @notice Gets pending rewards for a user
@@ -90,9 +68,7 @@ interface IGauge {
      * @return rewardTokens Array of reward token addresses
      * @return amounts Array of pending amounts
      */
-    function getPendingRewards(
-        address user
-    )
+    function getPendingRewards(address user)
         external
         view
         returns (address[] memory rewardTokens, uint256[] memory amounts);

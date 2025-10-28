@@ -12,10 +12,7 @@ interface IHookReceiverChain is IHookReceiver {
     /// @notice Emitted when hook receiver removed from chain
     /// @param hookReceiver IHookReceiver instance removed
     /// @param index Index that was removed
-    event HookReceiverRemoved(
-        IHookReceiver indexed hookReceiver,
-        uint256 index
-    );
+    event HookReceiverRemoved(IHookReceiver indexed hookReceiver, uint256 index);
 
     /**
      * @notice Adds hook receiver to end of chain
@@ -42,9 +39,7 @@ interface IHookReceiverChain is IHookReceiver {
      * @param index Index to query
      * @return IHookReceiver at index
      */
-    function getHookReceiver(
-        uint256 index
-    ) external view returns (IHookReceiver);
+    function getHookReceiver(uint256 index) external view returns (IHookReceiver);
 
     /**
      * @notice Gets number of hook receivers in chain

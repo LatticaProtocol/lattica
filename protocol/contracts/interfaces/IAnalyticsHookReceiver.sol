@@ -39,9 +39,7 @@ interface IAnalyticsHookReceiver is IHookReceiver {
      * @param site ISite to query
      * @return SiteMetrics struct with all cumulative data
      */
-    function getSiteMetrics(
-        ISite site
-    ) external view returns (SiteMetrics memory);
+    function getSiteMetrics(ISite site) external view returns (SiteMetrics memory);
 
     /**
      * @notice Gets metrics for a user across a Site
@@ -49,10 +47,7 @@ interface IAnalyticsHookReceiver is IHookReceiver {
      * @param user User to query
      * @return UserMetrics struct with user's historical data
      */
-    function getUserMetrics(
-        ISite site,
-        address user
-    ) external view returns (UserMetrics memory);
+    function getUserMetrics(ISite site, address user) external view returns (UserMetrics memory);
 
     /**
      * @notice Gets protocol-wide aggregated metrics
@@ -64,12 +59,7 @@ interface IAnalyticsHookReceiver is IHookReceiver {
     function getProtocolMetrics()
         external
         view
-        returns (
-            uint256 totalValueLocked,
-            uint256 totalBorrows,
-            uint256 avgUtilization,
-            uint256 numberOfSites
-        );
+        returns (uint256 totalValueLocked, uint256 totalBorrows, uint256 avgUtilization, uint256 numberOfSites);
 
     /**
      * @notice Gets top depositors in a Site
@@ -78,10 +68,10 @@ interface IAnalyticsHookReceiver is IHookReceiver {
      * @return users Array of user addresses
      * @return amounts Array of deposit amounts
      */
-    function getTopDepositors(
-        ISite site,
-        uint256 limit
-    ) external view returns (address[] memory users, uint256[] memory amounts);
+    function getTopDepositors(ISite site, uint256 limit)
+        external
+        view
+        returns (address[] memory users, uint256[] memory amounts);
 
     /**
      * @notice Gets recent activity in a Site
@@ -92,10 +82,7 @@ interface IAnalyticsHookReceiver is IHookReceiver {
      * @return amounts Array of amounts
      * @return timestamps Array of timestamps
      */
-    function getRecentActivity(
-        ISite site,
-        uint256 limit
-    )
+    function getRecentActivity(ISite site, uint256 limit)
         external
         view
         returns (

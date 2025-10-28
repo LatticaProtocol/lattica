@@ -2,8 +2,5 @@
   "name": "@lattica/protocol",
   "version": "0.0.0",
   "private": true,
-  "devDependencies": {
-    "prettier": "catalog:",
-    "prettier-plugin-solidity": "^2.1.0"
-  }
+  "devDependencies": {}
 }

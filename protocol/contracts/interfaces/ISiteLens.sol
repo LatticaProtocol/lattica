@@ -24,9 +24,7 @@ interface ISiteLens {
      * @param user User to query
      * @return Array of UserPortfolio structs
      */
-    function getUserPositionAcrossSites(
-        address user
-    ) external view returns (UserPortfolio[] memory);
+    function getUserPositionAcrossSites(address user) external view returns (UserPortfolio[] memory);
 
     /**
      * @notice Gets user's overall health
@@ -35,9 +33,7 @@ interface ISiteLens {
      * @return healthFactor Overall health factor
      * @return isSolvent True if solvent across all Sites
      */
-    function getUserHealth(
-        address user
-    ) external view returns (uint256 healthFactor, bool isSolvent);
+    function getUserHealth(address user) external view returns (uint256 healthFactor, bool isSolvent);
 
     /**
      * @notice Calculates maximum withdrawable amount
@@ -47,11 +43,7 @@ interface ISiteLens {
      * @param user User to query
      * @return Maximum amount user can withdraw while staying solvent
      */
-    function getMaxWithdrawable(
-        ISite site,
-        address asset,
-        address user
-    ) external view returns (uint256);
+    function getMaxWithdrawable(ISite site, address asset, address user) external view returns (uint256);
 
     /**
      * @notice Calculates maximum borrowable amount
@@ -59,10 +51,7 @@ interface ISiteLens {
      * @param user User to query
      * @return Maximum amount user can borrow while staying solvent
      */
-    function getMaxBorrowable(
-        ISite site,
-        address user
-    ) external view returns (uint256);
+    function getMaxBorrowable(ISite site, address user) external view returns (uint256);
 
     /**
      * @notice Gets all APYs for a Site
@@ -72,17 +61,10 @@ interface ISiteLens {
      * @return usdcSupplyAPY USDC supply APY
      * @return usdcBorrowAPY USDC borrow APY
      */
-    function getSiteAPYs(
-        ISite site
-    )
+    function getSiteAPYs(ISite site)
         external
         view
-        returns (
-            uint256 yesSupplyAPY,
-            uint256 noSupplyAPY,
-            uint256 usdcSupplyAPY,
-            uint256 usdcBorrowAPY
-        );
+        returns (uint256 yesSupplyAPY, uint256 noSupplyAPY, uint256 usdcSupplyAPY, uint256 usdcBorrowAPY);
 
     /**
      * @notice Gets total value locked in a Site
@@ -105,11 +87,7 @@ interface ISiteLens {
      * @return seizedCollateral Amount of collateral that would be seized
      * @return liquidationBonus Bonus liquidator would receive
      */
-    function getLiquidationPreview(
-        ISite site,
-        address user,
-        uint256 repayAmount
-    )
+    function getLiquidationPreview(ISite site, address user, uint256 repayAmount)
         external
         view
         returns (uint256 seizedCollateral, uint256 liquidationBonus);
@@ -120,8 +98,5 @@ interface ISiteLens {
      * @param user User to check
      * @return True if user is insolvent and can be liquidated
      */
-    function isLiquidatable(
-        ISite site,
-        address user
-    ) external view returns (bool);
+    function isLiquidatable(ISite site, address user) external view returns (bool);
 }

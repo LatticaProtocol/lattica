@@ -10,12 +10,7 @@ interface INotificationReceiver {
      * @param to Destination address
      * @param amount Amount transferred
      */
-    function onAfterTransfer(
-        address token,
-        address from,
-        address to,
-        uint256 amount
-    ) external;
+    function onAfterTransfer(address token, address from, address to, uint256 amount) external;
 
     /**
      * @notice Ping function to verify interface

@@ -8,11 +8,7 @@ interface IERC20R is IERC20 {
     /// @param owner Address that can receive tokens
     /// @param spender Address that can send tokens to owner
     /// @param value Amount approved
-    event ReceiveApproval(
-        address indexed owner,
-        address indexed spender,
-        uint256 value
-    );
+    event ReceiveApproval(address indexed owner, address indexed spender, uint256 value);
 
     /**
      * @notice Sets approval to receive tokens from spender
@@ -27,20 +23,14 @@ interface IERC20R is IERC20 {
      * @param spender Address that can send tokens
      * @param addedValue Amount to add to allowance
      */
-    function increaseReceiveAllowance(
-        address spender,
-        uint256 addedValue
-    ) external;
+    function increaseReceiveAllowance(address spender, uint256 addedValue) external;
 
     /**
      * @notice Decreases receive allowance
      * @param spender Address that can send tokens
      * @param subtractedValue Amount to subtract from allowance
      */
-    function decreaseReceiveAllowance(
-        address spender,
-        uint256 subtractedValue
-    ) external;
+    function decreaseReceiveAllowance(address spender, uint256 subtractedValue) external;
 
     /**
      * @notice Gets receive allowance
@@ -49,8 +39,5 @@ interface IERC20R is IERC20 {
      * @param spender Address that would send tokens
      * @return Allowance amount
      */
-    function receiveAllowance(
-        address owner,
-        address spender
-    ) external view returns (uint256);
+    function receiveAllowance(address owner, address spender) external view returns (uint256);
 }

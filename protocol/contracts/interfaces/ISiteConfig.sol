@@ -19,39 +19,19 @@ interface ISiteConfig {
     }
 
     /// @notice Emitted when LTV is updated
-    event MaxLoanToValueUpdated(
-        address indexed site,
-        address indexed asset,
-        uint256 newLTV
-    );
+    event MaxLoanToValueUpdated(address indexed site, address indexed asset, uint256 newLTV);
 
     /// @notice Emitted when liquidation threshold updated
-    event LiquidationThresholdUpdated(
-        address indexed site,
-        address indexed asset,
-        uint256 newThreshold
-    );
+    event LiquidationThresholdUpdated(address indexed site, address indexed asset, uint256 newThreshold);
 
     /// @notice Emitted when liquidation penalty updated
-    event LiquidationPenaltyUpdated(
-        address indexed site,
-        address indexed asset,
-        uint256 newPenalty
-    );
+    event LiquidationPenaltyUpdated(address indexed site, address indexed asset, uint256 newPenalty);
 
     /// @notice Emitted when interest rate model updated
-    event InterestRateModelUpdated(
-        address indexed site,
-        IInterestRateModel indexed newModel
-    );
+    event InterestRateModelUpdated(address indexed site, IInterestRateModel indexed newModel);
 
     /// @notice Emitted when asset status updated
-    event AssetStatusUpdated(
-        address indexed site,
-        address indexed asset,
-        bool borrowingEnabled,
-        bool depositsEnabled
-    );
+    event AssetStatusUpdated(address indexed site, address indexed asset, bool borrowingEnabled, bool depositsEnabled);
 
     /// @notice Emitted when resolution grace period updated
     event ResolutionGracePeriodUpdated(address indexed site, uint256 newPeriod);
@@ -72,11 +52,7 @@ interface ISiteConfig {
      * @param asset Asset address
      * @param threshold New threshold in basis points
      */
-    function setLiquidationThreshold(
-        ISite site,
-        address asset,
-        uint256 threshold
-    ) external;
+    function setLiquidationThreshold(ISite site, address asset, uint256 threshold) external;
 
     /**
      * @notice Sets liquidation target LTV for asset
@@ -86,11 +62,7 @@ interface ISiteConfig {
      * @param asset Asset address
      * @param targetLtv New target LTV in basis points (e.g., 7000 = 70%)
      */
-    function setLiquidationTargetLtv(
-        ISite site,
-        address asset,
-        uint256 targetLtv
-    ) external;
+    function setLiquidationTargetLtv(ISite site, address asset, uint256 targetLtv) external;
 
     /**
      * @notice Sets liquidation penalty for asset
@@ -99,11 +71,7 @@ interface ISiteConfig {
      * @param asset Asset address
      * @param penalty New penalty in basis points
      */
-    function setLiquidationPenalty(
-        ISite site,
-        address asset,
-        uint256 penalty
-    ) external;
+    function setLiquidationPenalty(ISite site, address asset, uint256 penalty) external;
 
     /**
      * @notice Sets complete asset config at once
@@ -112,11 +80,7 @@ interface ISiteConfig {
      * @param asset Asset address
      * @param config New configuration struct
      */
-    function setAssetConfig(
-        ISite site,
-        address asset,
-        AssetConfig calldata config
-    ) external;
+    function setAssetConfig(ISite site, address asset, AssetConfig calldata config) external;
 
     /**
      * @notice Updates interest rate model for Site
@@ -124,10 +88,7 @@ interface ISiteConfig {
      * @param site ISite instance
      * @param newModel New IInterestRateModel instance
      */
-    function setInterestRateModel(
-        ISite site,
-        IInterestRateModel newModel
-    ) external;
+    function setInterestRateModel(ISite site, IInterestRateModel newModel) external;
 
     /**
      * @notice Sets resolution grace period
@@ -143,10 +104,7 @@ interface ISiteConfig {
      * @param site ISite instance
      * @param delay Delay in seconds
      */
-    function setPostResolutionLiquidationDelay(
-        ISite site,
-        uint256 delay
-    ) external;
+    function setPostResolutionLiquidationDelay(ISite site, uint256 delay) external;
 
     /**
      * @notice Enables/disables borrowing for asset
@@ -155,11 +113,7 @@ interface ISiteConfig {
      * @param asset Asset address
      * @param enabled True to enable, false to disable
      */
-    function setBorrowingEnabled(
-        ISite site,
-        address asset,
-        bool enabled
-    ) external;
+    function setBorrowingEnabled(ISite site, address asset, bool enabled) external;
 
     /**
      * @notice Enables/disables deposits for asset
@@ -168,11 +122,7 @@ interface ISiteConfig {
      * @param asset Asset address
      * @param enabled True to enable, false to disable
      */
-    function setDepositsEnabled(
-        ISite site,
-        address asset,
-        bool enabled
-    ) external;
+    function setDepositsEnabled(ISite site, address asset, bool enabled) external;
 
     /**
      * @notice Gets current asset configuration
@@ -181,26 +131,19 @@ interface ISiteConfig {
      * @param asset Asset address
      * @return Current configuration struct
      */
-    function getAssetConfig(
-        ISite site,
-        address asset
-    ) external view returns (AssetConfig memory);
+    function getAssetConfig(ISite site, address asset) external view returns (AssetConfig memory);
 
     /**
      * @notice Gets resolution grace period
      * @param site ISite instance
      * @return Grace period in seconds
      */
-    function getResolutionGracePeriod(
-        ISite site
-    ) external view returns (uint256);
+    function getResolutionGracePeriod(ISite site) external view returns (uint256);
 
     /**
      * @notice Gets post-resolution liquidation delay
      * @param site ISite instance
      * @return Delay in seconds
      */
-    function getPostResolutionLiquidationDelay(
-        ISite site
-    ) external view returns (uint256);
+    function getPostResolutionLiquidationDelay(ISite site) external view returns (uint256);
 }

@@ -59,10 +59,7 @@ interface IGuardedLaunch {
      * @param asset Asset to check
      * @return True if paused
      */
-    function isSitePaused(
-        ISite site,
-        address asset
-    ) external view returns (bool);
+    function isSitePaused(ISite site, address asset) external view returns (bool);
 
     /**
      * @notice Enables/disables deposit limits
@@ -90,9 +87,7 @@ interface IGuardedLaunch {
      * @param site ISite to query
      * @return Maximum deposits allowed (in USDC value)
      */
-    function getMaxSiteDepositsValue(
-        ISite site
-    ) external view returns (uint256);
+    function getMaxSiteDepositsValue(ISite site) external view returns (uint256);
 
     /**
      * @notice Checks if deposit would exceed limit
@@ -101,9 +96,5 @@ interface IGuardedLaunch {
      * @param amount Amount to deposit
      * @return True if deposit exceeds limit
      */
-    function isDepositLimitReached(
-        ISite site,
-        address asset,
-        uint256 amount
-    ) external view returns (bool);
+    function isDepositLimitReached(ISite site, address asset, uint256 amount) external view returns (bool);
 }

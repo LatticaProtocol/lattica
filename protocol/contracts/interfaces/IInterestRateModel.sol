@@ -30,10 +30,7 @@ interface IInterestRateModel {
      * @param totalBorrows Total borrowed from pool
      * @return Borrow rate per year in ray (1e27 = 100%)
      */
-    function getBorrowRate(
-        uint256 totalDeposits,
-        uint256 totalBorrows
-    ) external view returns (uint256);
+    function getBorrowRate(uint256 totalDeposits, uint256 totalBorrows) external view returns (uint256);
 
     /**
      * @notice Calculates current supply rate
@@ -42,11 +39,10 @@ interface IInterestRateModel {
      * @param protocolFeeBps Protocol fee in basis points
      * @return Supply rate per year in ray (1e27 = 100%)
      */
-    function getSupplyRate(
-        uint256 totalDeposits,
-        uint256 totalBorrows,
-        uint256 protocolFeeBps
-    ) external view returns (uint256);
+    function getSupplyRate(uint256 totalDeposits, uint256 totalBorrows, uint256 protocolFeeBps)
+        external
+        view
+        returns (uint256);
 
     /**
      * @notice Gets detailed rate breakdown
@@ -54,9 +50,7 @@ interface IInterestRateModel {
      * @param state Current pool state
      * @return RateBreakdown struct with all components
      */
-    function getRateBreakdown(
-        PoolState calldata state
-    ) external view returns (RateBreakdown memory);
+    function getRateBreakdown(PoolState calldata state) external view returns (RateBreakdown memory);
 
     /**
      * @notice Calculates compound interest
@@ -66,11 +60,10 @@ interface IInterestRateModel {
      * @param timeElapsed Time in seconds
      * @return Final amount after compound interest
      */
-    function calculateCompoundInterest(
-        uint256 principal,
-        uint256 rate,
-        uint256 timeElapsed
-    ) external pure returns (uint256);
+    function calculateCompoundInterest(uint256 principal, uint256 rate, uint256 timeElapsed)
+        external
+        pure
+        returns (uint256);
 
     /**
      * @notice Calculates pool state from raw data

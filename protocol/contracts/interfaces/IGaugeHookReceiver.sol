@@ -9,23 +9,14 @@ interface IGaugeHookReceiver is IHookReceiver {
     /// @param site ISite instance
     /// @param oldGauge Previous gauge (address(0) if none)
     /// @param newGauge New gauge instance
-    event GaugeUpdated(
-        ISite indexed site,
-        IGauge indexed oldGauge,
-        IGauge indexed newGauge
-    );
+    event GaugeUpdated(ISite indexed site, IGauge indexed oldGauge, IGauge indexed newGauge);
 
     /// @notice Emitted when user balance updated in gauge
     /// @param site ISite where balance changed
     /// @param user User whose balance changed
     /// @param oldBalance Previous balance
     /// @param newBalance New balance
-    event GaugeBalanceUpdated(
-        ISite indexed site,
-        address indexed user,
-        uint256 oldBalance,
-        uint256 newBalance
-    );
+    event GaugeBalanceUpdated(ISite indexed site, address indexed user, uint256 oldBalance, uint256 newBalance);
 
     /**
      * @notice Sets gauge for a Site

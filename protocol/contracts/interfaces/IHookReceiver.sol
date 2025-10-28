@@ -11,11 +11,7 @@ interface IHookReceiver {
      * @param action Action ID (see Hook library)
      * @param inputData ABI-encoded action-specific data
      */
-    function beforeAction(
-        ISite site,
-        uint256 action,
-        bytes calldata inputData
-    ) external;
+    function beforeAction(ISite site, uint256 action, bytes calldata inputData) external;
 
     /**
      * @notice Called after a protocol action completes
@@ -24,11 +20,7 @@ interface IHookReceiver {
      * @param action Action ID (see Hook library)
      * @param inputData ABI-encoded action-specific data
      */
-    function afterAction(
-        ISite site,
-        uint256 action,
-        bytes calldata inputData
-    ) external;
+    function afterAction(ISite site, uint256 action, bytes calldata inputData) external;
 
     /**
      * @notice Returns hook configuration for a Site
@@ -37,9 +29,7 @@ interface IHookReceiver {
      * @return hooksBefore Bitmask of actions with beforeAction hooks
      * @return hooksAfter Bitmask of actions with afterAction hooks
      */
-    function hookReceiverConfig(
-        ISite site
-    ) external view returns (uint24 hooksBefore, uint24 hooksAfter);
+    function hookReceiverConfig(ISite site) external view returns (uint24 hooksBefore, uint24 hooksAfter);
 
     /**
      * @notice Returns hook receiver version

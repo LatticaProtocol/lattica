@@ -19,11 +19,7 @@ interface ISiteRepository {
     /// @param site ISite instance of the newly deployed contract
     /// @param conditionId Polymarket condition ID for this market
     /// @param creator Address that triggered Site creation
-    event SiteCreated(
-        ISite indexed site,
-        bytes32 indexed conditionId,
-        address indexed creator
-    );
+    event SiteCreated(ISite indexed site, bytes32 indexed conditionId, address indexed creator);
 
     /// @notice Emitted when a market is approved for Site creation
     /// @param conditionId Polymarket condition ID that was approved
@@ -93,10 +89,7 @@ interface ISiteRepository {
      * @param conditionId Polymarket condition ID to propose
      * @param oracle Proposed oracle for this market
      */
-    function proposeMarket(
-        bytes32 conditionId,
-        IPolymarketOracle oracle
-    ) external;
+    function proposeMarket(bytes32 conditionId, IPolymarketOracle oracle) external;
 
     /**
      * @notice Approves a proposed market for Site creation
@@ -143,10 +136,7 @@ interface ISiteRepository {
      * @notice Gets the interest rate model factory
      * @return IInterestRateModelFactory instance
      */
-    function interestRateModelFactory()
-        external
-        view
-        returns (IInterestRateModelFactory);
+    function interestRateModelFactory() external view returns (IInterestRateModelFactory);
 
     /**
      * @notice Sets the default maximum loan-to-value ratio

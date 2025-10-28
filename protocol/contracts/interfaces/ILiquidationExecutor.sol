@@ -23,9 +23,7 @@ interface ILiquidationExecutor {
      * @param params Liquidation parameters
      * @return profit Profit made by liquidator (in USDC)
      */
-    function executeLiquidationWithSwap(
-        LiquidationParams calldata params
-    ) external returns (uint256 profit);
+    function executeLiquidationWithSwap(LiquidationParams calldata params) external returns (uint256 profit);
 
     /**
      * @notice Executes flash liquidation with swap
@@ -33,7 +31,5 @@ interface ILiquidationExecutor {
      * @param params Liquidation parameters
      * @return profit Profit made by liquidator (in USDC)
      */
-    function executeFlashLiquidationWithSwap(
-        LiquidationParams calldata params
-    ) external returns (uint256 profit);
+    function executeFlashLiquidationWithSwap(LiquidationParams calldata params) external returns (uint256 profit);
 }
