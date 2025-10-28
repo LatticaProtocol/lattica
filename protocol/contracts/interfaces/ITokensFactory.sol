@@ -11,6 +11,7 @@ interface ITokensFactory {
         Collateral, // Borrowable collateral token
         CollateralOnly, // Protected collateral token
         Debt // Debt token (implements IERC20R)
+
     }
 
     /// @notice Emitted when a share token is deployed
@@ -18,12 +19,7 @@ interface ITokensFactory {
     /// @param site ISite instance this token belongs to
     /// @param asset Address of underlying asset
     /// @param tokenType Type of token deployed
-    event ShareTokenDeployed(
-        address indexed token,
-        ISite indexed site,
-        address indexed asset,
-        TokenType tokenType
-    );
+    event ShareTokenDeployed(address indexed token, ISite indexed site, address indexed asset, TokenType tokenType);
 
     /**
      * @notice Creates a borrowable collateral share token
@@ -33,12 +29,9 @@ interface ITokensFactory {
      * @param symbol Token symbol
      * @return Deployed IShareToken instance
      */
-    function createShareCollateralToken(
-        ISite site,
-        address asset,
-        string calldata name,
-        string calldata symbol
-    ) external returns (IShareToken);
+    function createShareCollateralToken(ISite site, address asset, string calldata name, string calldata symbol)
+        external
+        returns (IShareToken);
 
     /**
      * @notice Creates a protected collateral share token
@@ -48,12 +41,9 @@ interface ITokensFactory {
      * @param symbol Token symbol
      * @return Deployed IShareToken instance
      */
-    function createShareProtectedToken(
-        ISite site,
-        address asset,
-        string calldata name,
-        string calldata symbol
-    ) external returns (IShareToken);
+    function createShareProtectedToken(ISite site, address asset, string calldata name, string calldata symbol)
+        external
+        returns (IShareToken);
 
     /**
      * @notice Creates a debt share token (implements IERC20R)
@@ -63,12 +53,9 @@ interface ITokensFactory {
      * @param symbol Token symbol
      * @return Deployed IERC20R instance
      */
-    function createShareDebtToken(
-        ISite site,
-        address asset,
-        string calldata name,
-        string calldata symbol
-    ) external returns (IERC20R);
+    function createShareDebtToken(ISite site, address asset, string calldata name, string calldata symbol)
+        external
+        returns (IERC20R);
 
     /**
      * @notice Validates if address is a Site

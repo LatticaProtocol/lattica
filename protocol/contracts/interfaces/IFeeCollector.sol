@@ -8,10 +8,7 @@ interface IFeeCollector {
     event ProtocolFeeUpdated(uint256 newFeeBps);
 
     /// @notice Emitted when liquidation incentive updated
-    event LiquidationIncentiveUpdated(
-        uint256 liquidatorBps,
-        uint256 protocolBps
-    );
+    event LiquidationIncentiveUpdated(uint256 liquidatorBps, uint256 protocolBps);
 
     /// @notice Emitted when resolution fee updated
     event ResolutionFeeUpdated(uint256 newFeeBps);
@@ -41,10 +38,7 @@ interface IFeeCollector {
      * @param liquidatorBps Liquidator's share in basis points
      * @param protocolBps Protocol's share in basis points
      */
-    function setLiquidationIncentiveBps(
-        uint256 liquidatorBps,
-        uint256 protocolBps
-    ) external;
+    function setLiquidationIncentiveBps(uint256 liquidatorBps, uint256 protocolBps) external;
 
     /**
      * @notice Sets resolution handling fee
@@ -67,10 +61,7 @@ interface IFeeCollector {
      * @param asset Asset address
      * @return collected Amount collected
      */
-    function collectFeesForAsset(
-        ISite site,
-        address asset
-    ) external returns (uint256 collected);
+    function collectFeesForAsset(ISite site, address asset) external returns (uint256 collected);
 
     /**
      * @notice Gets claimable fees for Site
@@ -85,10 +76,7 @@ interface IFeeCollector {
      * @param asset Asset address
      * @return Claimable fee amount
      */
-    function claimableFeesForAsset(
-        ISite site,
-        address asset
-    ) external view returns (uint256);
+    function claimableFeesForAsset(ISite site, address asset) external view returns (uint256);
 
     /**
      * @notice Sets address that receives collected fees
@@ -114,10 +102,7 @@ interface IFeeCollector {
      * @return liquidatorBps Liquidator's share
      * @return protocolBps Protocol's share
      */
-    function liquidationIncentive()
-        external
-        view
-        returns (uint256 liquidatorBps, uint256 protocolBps);
+    function liquidationIncentive() external view returns (uint256 liquidatorBps, uint256 protocolBps);
 
     /**
      * @notice Gets resolution fee

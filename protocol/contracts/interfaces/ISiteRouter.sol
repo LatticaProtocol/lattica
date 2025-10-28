@@ -75,10 +75,5 @@ interface ISiteRouter {
      * @param asset Asset to migrate
      * @param amount Amount to migrate
      */
-    function migratePosition(
-        ISite fromSite,
-        ISite toSite,
-        address asset,
-        uint256 amount
-    ) external;
+    function migratePosition(ISite fromSite, ISite toSite, address asset, uint256 amount) external;
 }

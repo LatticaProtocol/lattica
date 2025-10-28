@@ -18,10 +18,7 @@ interface IInterestRateModelFactory {
     /// @notice Emitted when new model created
     /// @param model IInterestRateModel instance
     /// @param creator Address that created the model
-    event InterestRateModelCreated(
-        IInterestRateModel indexed model,
-        address indexed creator
-    );
+    event InterestRateModelCreated(IInterestRateModel indexed model, address indexed creator);
 
     /**
      * @notice Creates custom interest rate model
@@ -44,17 +41,12 @@ interface IInterestRateModelFactory {
      * @dev Convenience function for standard curve
      * @return Deployed IInterestRateModel instance
      */
-    function createDefaultInterestRateModel()
-        external
-        returns (IInterestRateModel);
+    function createDefaultInterestRateModel() external returns (IInterestRateModel);
 
     /**
      * @notice Gets default model parameters
      * @dev Returns recommended parameters for most Sites
      * @return ModelParameters struct with defaults
      */
-    function getDefaultParameters()
-        external
-        pure
-        returns (ModelParameters memory);
+    function getDefaultParameters() external pure returns (ModelParameters memory);
 }

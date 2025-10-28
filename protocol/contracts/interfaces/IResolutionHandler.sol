@@ -11,17 +11,14 @@ interface IResolutionHandler {
         GRACE_PERIOD, // Waiting for disputes
         FINALIZED, // Resolution complete
         DISPUTED // Resolution challenged
+
     }
 
     /// @notice Emitted when resolution triggered
     /// @param conditionId Polymarket condition ID
     /// @param yesWon True if YES won
     /// @param gracePeriodEnd Grace period end timestamp
-    event ResolutionTriggered(
-        bytes32 indexed conditionId,
-        bool yesWon,
-        uint256 gracePeriodEnd
-    );
+    event ResolutionTriggered(bytes32 indexed conditionId, bool yesWon, uint256 gracePeriodEnd);
 
     /// @notice Emitted when resolution finalized
     /// @param conditionId Polymarket condition ID
@@ -36,11 +33,7 @@ interface IResolutionHandler {
     /// @param user User liquidated
     /// @param losingAsset Asset that lost
     /// @param amount Amount liquidated
-    event LosingPositionLiquidated(
-        address indexed user,
-        address indexed losingAsset,
-        uint256 amount
-    );
+    event LosingPositionLiquidated(address indexed user, address indexed losingAsset, uint256 amount);
 
     /// @notice Emitted when winnings distributed
     /// @param user User receiving winnings
@@ -73,10 +66,7 @@ interface IResolutionHandler {
      * @param site ISite where resolution occurred
      * @param users Array of users to liquidate
      */
-    function liquidateLosingPositions(
-        ISite site,
-        address[] calldata users
-    ) external;
+    function liquidateLosingPositions(ISite site, address[] calldata users) external;
 
     /**
      * @notice Distributes winnings to user
@@ -85,19 +75,14 @@ interface IResolutionHandler {
      * @param user User to distribute to
      * @return amount Amount distributed
      */
-    function distributeWinnings(
-        ISite site,
-        address user
-    ) external returns (uint256 amount);
+    function distributeWinnings(ISite site, address user) external returns (uint256 amount);
 
     /**
      * @notice Gets resolution state
      * @param site ISite to query
      * @return Current resolution state
      */
-    function getResolutionState(
-        ISite site
-    ) external view returns (ResolutionState);
+    function getResolutionState(ISite site) external view returns (ResolutionState);
 
     /**
      * @notice Checks if resolution is complete
@@ -120,11 +105,7 @@ interface IResolutionHandler {
      * @param asset Asset to check
      * @return True if withdrawal allowed
      */
-    function canWithdraw(
-        ISite site,
-        address user,
-        address asset
-    ) external view returns (bool);
+    function canWithdraw(ISite site, address user, address asset) external view returns (bool);
 
     /**
      * @notice Checks if user can be liquidated
@@ -132,8 +113,5 @@ interface IResolutionHandler {
      * @param user User to check
      * @return True if liquidation allowed
      */
-    function canLiquidate(
-        ISite site,
-        address user
-    ) external view returns (bool);
+    function canLiquidate(ISite site, address user) external view returns (bool);
 }

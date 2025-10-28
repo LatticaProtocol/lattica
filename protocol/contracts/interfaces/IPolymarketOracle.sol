@@ -19,12 +19,7 @@ interface IPolymarketOracle {
     /// @param yesPrice New YES price
     /// @param noPrice New NO price
     /// @param timestamp Update timestamp
-    event PriceUpdate(
-        bytes32 indexed conditionId,
-        uint256 yesPrice,
-        uint256 noPrice,
-        uint64 timestamp
-    );
+    event PriceUpdate(bytes32 indexed conditionId, uint256 yesPrice, uint256 noPrice, uint64 timestamp);
 
     /// @notice Emitted when market resolves
     /// @param conditionId Polymarket condition ID
@@ -38,11 +33,7 @@ interface IPolymarketOracle {
      * @param yesPrice New YES price in USDC (6 decimals)
      * @param noPrice New NO price in USDC (6 decimals)
      */
-    function updatePrice(
-        bytes32 conditionId,
-        uint256 yesPrice,
-        uint256 noPrice
-    ) external;
+    function updatePrice(bytes32 conditionId, uint256 yesPrice, uint256 noPrice) external;
 
     /**
      * @notice Resolves market
@@ -57,9 +48,7 @@ interface IPolymarketOracle {
      * @param conditionId Polymarket condition ID
      * @return MarketData struct with all current data
      */
-    function getMarketData(
-        bytes32 conditionId
-    ) external view returns (MarketData memory);
+    function getMarketData(bytes32 conditionId) external view returns (MarketData memory);
 
     /**
      * @notice Gets YES token price
@@ -88,9 +77,7 @@ interface IPolymarketOracle {
      * @param conditionId Polymarket condition ID
      * @return yesWon True if YES won, false if NO won
      */
-    function getResolution(
-        bytes32 conditionId
-    ) external view returns (bool yesWon);
+    function getResolution(bytes32 conditionId) external view returns (bool yesWon);
 
     /**
      * @notice Gets estimated time to resolution
@@ -98,9 +85,7 @@ interface IPolymarketOracle {
      * @param conditionId Polymarket condition ID
      * @return Seconds until expected resolution
      */
-    function getTimeToResolution(
-        bytes32 conditionId
-    ) external view returns (uint256);
+    function getTimeToResolution(bytes32 conditionId) external view returns (uint256);
 
     /**
      * @notice Checks if price is fresh (not stale)

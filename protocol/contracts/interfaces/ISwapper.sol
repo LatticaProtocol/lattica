@@ -7,12 +7,7 @@ interface ISwapper {
     /// @param tokenOut Output token address
     /// @param amountIn Amount of input tokens
     /// @param amountOut Amount of output tokens
-    event Swap(
-        address indexed tokenIn,
-        address indexed tokenOut,
-        uint256 amountIn,
-        uint256 amountOut
-    );
+    event Swap(address indexed tokenIn, address indexed tokenOut, uint256 amountIn, uint256 amountOut);
 
     /**
      * @notice Swaps exact input amount
@@ -65,11 +60,7 @@ interface ISwapper {
      * @param amountIn Amount of input tokens
      * @return Expected amount of output tokens
      */
-    function getAmountOut(
-        address tokenIn,
-        address tokenOut,
-        uint256 amountIn
-    ) external view returns (uint256);
+    function getAmountOut(address tokenIn, address tokenOut, uint256 amountIn) external view returns (uint256);
 
     /**
      * @notice Quotes input amount for given output
@@ -79,9 +70,5 @@ interface ISwapper {
      * @param amountOut Desired amount of output tokens
      * @return Expected amount of input tokens needed
      */
-    function getAmountIn(
-        address tokenIn,
-        address tokenOut,
-        uint256 amountOut
-    ) external view returns (uint256);
+    function getAmountIn(address tokenIn, address tokenOut, uint256 amountOut) external view returns (uint256);
 }

@@ -21,31 +21,19 @@ interface IIncentivesController {
     /// @param programId Unique program identifier
     /// @param site ISite this program applies to
     /// @param rewardToken Token being distributed
-    event IncentiveProgramCreated(
-        uint256 indexed programId,
-        ISite indexed site,
-        address rewardToken
-    );
+    event IncentiveProgramCreated(uint256 indexed programId, ISite indexed site, address rewardToken);
 
     /// @notice Emitted when rewards accrue to user
     /// @param user User accruing rewards
     /// @param programId Program identifier
     /// @param amount Amount accrued
-    event RewardsAccrued(
-        address indexed user,
-        uint256 indexed programId,
-        uint256 amount
-    );
+    event RewardsAccrued(address indexed user, uint256 indexed programId, uint256 amount);
 
     /// @notice Emitted when user claims rewards
     /// @param user User claiming
     /// @param programId Program identifier
     /// @param amount Amount claimed
-    event RewardsClaimed(
-        address indexed user,
-        uint256 indexed programId,
-        uint256 amount
-    );
+    event RewardsClaimed(address indexed user, uint256 indexed programId, uint256 amount);
 
     /**
      * @notice Creates new incentive program
@@ -56,12 +44,9 @@ interface IIncentivesController {
      * @param duration Program duration in seconds
      * @return programId Unique identifier for this program
      */
-    function createIncentiveProgram(
-        ISite site,
-        address rewardToken,
-        uint256 rewardPerSecond,
-        uint256 duration
-    ) external returns (uint256 programId);
+    function createIncentiveProgram(ISite site, address rewardToken, uint256 rewardPerSecond, uint256 duration)
+        external
+        returns (uint256 programId);
 
     /**
      * @notice Accrues rewards for a user
@@ -84,17 +69,12 @@ interface IIncentivesController {
      * @param user User to check
      * @return Accrued reward amount
      */
-    function getAccruedRewards(
-        uint256 programId,
-        address user
-    ) external view returns (uint256);
+    function getAccruedRewards(uint256 programId, address user) external view returns (uint256);
 
     /**
      * @notice Gets incentive program details
      * @param programId Program identifier
      * @return IncentiveProgram struct with all details
      */
-    function getIncentiveProgram(
-        uint256 programId
-    ) external view returns (IncentiveProgram memory);
+    function getIncentiveProgram(uint256 programId) external view returns (IncentiveProgram memory);
 }

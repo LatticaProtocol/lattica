@@ -37,10 +37,7 @@ library Hook {
      * @param action Action ID to check (must be 0-31)
      * @return True if action bit is set in bitmask
      */
-    function matchAction(
-        uint24 hooks,
-        uint256 action
-    ) internal pure returns (bool) {
+    function matchAction(uint24 hooks, uint256 action) internal pure returns (bool) {
         if (action > 31) return false;
         return (hooks & (1 << action)) != 0;
     }
@@ -51,9 +48,7 @@ library Hook {
      * @param tokenType Type of share token (COLLATERAL_TOKEN, PROTECTED_TOKEN, DEBT_TOKEN)
      * @return Encoded action value (action ID in lower bits, token type in upper bits)
      */
-    function shareTokenTransfer(
-        uint24 tokenType
-    ) internal pure returns (uint256) {
+    function shareTokenTransfer(uint24 tokenType) internal pure returns (uint256) {
         return SHARE_TOKEN_TRANSFER | (uint256(tokenType) << 8);
     }
 
@@ -62,9 +57,7 @@ library Hook {
      * @param encodedAction Encoded action from shareTokenTransfer()
      * @return The token type (COLLATERAL_TOKEN, PROTECTED_TOKEN, or DEBT_TOKEN)
      */
-    function decodeShareTokenTransfer(
-        uint256 encodedAction
-    ) internal pure returns (uint24) {
+    function decodeShareTokenTransfer(uint256 encodedAction) internal pure returns (uint24) {
         return uint24(encodedAction >> 8);
     }
 
@@ -84,9 +77,7 @@ library Hook {
      * @param actions Array of action IDs to enable
      * @return combined Bitmask with all specified actions enabled
      */
-    function combineBits(
-        uint256[] memory actions
-    ) internal pure returns (uint24 combined) {
+    function combineBits(uint256[] memory actions) internal pure returns (uint24 combined) {
         for (uint256 i = 0; i < actions.length; i++) {
             require(actions[i] <= 31, "Hook: action out of range");
             combined |= uint24(1 << actions[i]);

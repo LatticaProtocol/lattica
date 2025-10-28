@@ -7,20 +7,13 @@ interface IOracleRegistry {
     /// @notice Emitted when oracle is set for a condition
     /// @param conditionId Polymarket condition ID
     /// @param oracle Oracle contract address
-    event OracleSet(
-        bytes32 indexed conditionId,
-        IPolymarketOracle indexed oracle
-    );
+    event OracleSet(bytes32 indexed conditionId, IPolymarketOracle indexed oracle);
 
     /// @notice Emitted when oracle updates price
     /// @param conditionId Polymarket condition ID
     /// @param yesPrice YES token price
     /// @param noPrice NO token price
-    event OraclePriceUpdate(
-        bytes32 indexed conditionId,
-        uint256 yesPrice,
-        uint256 noPrice
-    );
+    event OraclePriceUpdate(bytes32 indexed conditionId, uint256 yesPrice, uint256 noPrice);
 
     /**
      * @notice Sets oracle for a condition
@@ -35,9 +28,7 @@ interface IOracleRegistry {
      * @param conditionId Polymarket condition ID
      * @return IPolymarketOracle instance, or IPolymarketOracle(address(0)) if none
      */
-    function getOracle(
-        bytes32 conditionId
-    ) external view returns (IPolymarketOracle);
+    function getOracle(bytes32 conditionId) external view returns (IPolymarketOracle);
 
     /**
      * @notice Gets YES token price
@@ -61,9 +52,7 @@ interface IOracleRegistry {
      * @return yesPrice YES token price
      * @return noPrice NO token price
      */
-    function getPrices(
-        bytes32 conditionId
-    ) external view returns (uint256 yesPrice, uint256 noPrice);
+    function getPrices(bytes32 conditionId) external view returns (uint256 yesPrice, uint256 noPrice);
 
     /**
      * @notice Checks if market is resolved
@@ -78,9 +67,7 @@ interface IOracleRegistry {
      * @param conditionId Polymarket condition ID
      * @return yesWon True if YES won, false if NO won
      */
-    function getResolution(
-        bytes32 conditionId
-    ) external view returns (bool yesWon);
+    function getResolution(bytes32 conditionId) external view returns (bool yesWon);
 
     /**
      * @notice Checks if price data is fresh

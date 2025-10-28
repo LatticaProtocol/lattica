@@ -50,12 +50,9 @@ interface IPartialLiquidation is IHookReceiver {
      * @return collateralSeized Amount of collateral liquidator receives
      * @return debtRepaid Amount of debt actually repaid
      */
-    function liquidationCall(
-        address collateralAsset,
-        address borrower,
-        uint256 maxDebtToCover,
-        bool receiveShareToken
-    ) external returns (uint256 collateralSeized, uint256 debtRepaid);
+    function liquidationCall(address collateralAsset, address borrower, uint256 maxDebtToCover, bool receiveShareToken)
+        external
+        returns (uint256 collateralSeized, uint256 debtRepaid);
 
     /**
      * @notice Calculates maximum liquidation amounts
@@ -65,16 +62,10 @@ interface IPartialLiquidation is IHookReceiver {
      * @return debtToRepay Maximum debt that can be repaid
      * @return shareTokenRequired True if must receive sTokens (can't unwrap)
      */
-    function maxLiquidation(
-        address borrower
-    )
+    function maxLiquidation(address borrower)
         external
         view
-        returns (
-            uint256 collateralToLiquidate,
-            uint256 debtToRepay,
-            bool shareTokenRequired
-        );
+        returns (uint256 collateralToLiquidate, uint256 debtToRepay, bool shareTokenRequired);
 
     /**
      * @notice Previews liquidation outcome
@@ -85,18 +76,10 @@ interface IPartialLiquidation is IHookReceiver {
      * @return liquidationBonus Bonus liquidator would receive
      * @return newLTV User's LTV after liquidation
      */
-    function previewLiquidation(
-        address borrower,
-        address debtAsset,
-        uint256 debtAmount
-    )
+    function previewLiquidation(address borrower, address debtAsset, uint256 debtAmount)
         external
         view
-        returns (
-            uint256 collateralAmount,
-            uint256 liquidationBonus,
-            uint256 newLTV
-        );
+        returns (uint256 collateralAmount, uint256 liquidationBonus, uint256 newLTV);
 
     /**
      * @notice Gets liquidation target LTV for this Site

@@ -10,46 +10,27 @@ interface IResolutionHookReceiver is IHookReceiver {
     /// @param conditionId Polymarket condition ID
     /// @param yesWon True if YES won, false if NO won
     /// @param gracePeriodEnd Timestamp when grace period ends
-    event ResolutionTriggered(
-        ISite indexed site,
-        bytes32 indexed conditionId,
-        bool yesWon,
-        uint256 gracePeriodEnd
-    );
+    event ResolutionTriggered(ISite indexed site, bytes32 indexed conditionId, bool yesWon, uint256 gracePeriodEnd);
 
     /// @notice Emitted when resolution finalized
     /// @param site ISite that was resolved
     /// @param conditionId Polymarket condition ID
     /// @param yesWon True if YES won, false if NO won
-    event ResolutionFinalized(
-        ISite indexed site,
-        bytes32 indexed conditionId,
-        bool yesWon
-    );
+    event ResolutionFinalized(ISite indexed site, bytes32 indexed conditionId, bool yesWon);
 
     /// @notice Emitted when resolution disputed
     /// @param site ISite being disputed
     /// @param conditionId Polymarket condition ID
     /// @param disputer Address that disputed
     /// @param reason Reason for dispute
-    event ResolutionDisputed(
-        ISite indexed site,
-        bytes32 indexed conditionId,
-        address indexed disputer,
-        string reason
-    );
+    event ResolutionDisputed(ISite indexed site, bytes32 indexed conditionId, address indexed disputer, string reason);
 
     /// @notice Emitted when losing position liquidated post-resolution
     /// @param site ISite where liquidation occurred
     /// @param user User liquidated
     /// @param losingAsset Asset that lost (worth $0)
     /// @param amount Amount liquidated
-    event LosingPositionLiquidated(
-        ISite indexed site,
-        address indexed user,
-        address losingAsset,
-        uint256 amount
-    );
+    event LosingPositionLiquidated(ISite indexed site, address indexed user, address losingAsset, uint256 amount);
 
     /**
      * @notice Gets resolution state for a Site
@@ -57,9 +38,7 @@ interface IResolutionHookReceiver is IHookReceiver {
      * @param site ISite to query
      * @return Current resolution state
      */
-    function getResolutionState(
-        ISite site
-    ) external view returns (IResolutionHandler.ResolutionState);
+    function getResolutionState(ISite site) external view returns (IResolutionHandler.ResolutionState);
 
     /**
      * @notice Gets resolution outcome
@@ -67,9 +46,7 @@ interface IResolutionHookReceiver is IHookReceiver {
      * @param site ISite to query
      * @return yesWon True if YES won, false if NO won
      */
-    function getResolutionOutcome(
-        ISite site
-    ) external view returns (bool yesWon);
+    function getResolutionOutcome(ISite site) external view returns (bool yesWon);
 
     /**
      * @notice Gets grace period end timestamp
@@ -85,10 +62,7 @@ interface IResolutionHookReceiver is IHookReceiver {
      * @param user User to check
      * @return canLiquidate True if user has losing collateral and can be liquidated
      */
-    function canLiquidatePostResolution(
-        ISite site,
-        address user
-    ) external view returns (bool canLiquidate);
+    function canLiquidatePostResolution(ISite site, address user) external view returns (bool canLiquidate);
 
     /**
      * @notice Batch liquidates users with losing collateral
@@ -98,10 +72,7 @@ interface IResolutionHookReceiver is IHookReceiver {
      * @return liquidatedUsers Array of successfully liquidated users
      * @return amounts Array of amounts liquidated
      */
-    function batchLiquidateLosingPositions(
-        ISite site,
-        address[] calldata users
-    )
+    function batchLiquidateLosingPositions(ISite site, address[] calldata users)
         external
         returns (address[] memory liquidatedUsers, uint256[] memory amounts);
 

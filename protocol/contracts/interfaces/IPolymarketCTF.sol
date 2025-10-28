@@ -8,10 +8,7 @@ interface IPolymarketCTF {
      * @param tokenId Token ID (condition ID + position)
      * @return Balance of the token
      */
-    function balanceOf(
-        address account,
-        uint256 tokenId
-    ) external view returns (uint256);
+    function balanceOf(address account, uint256 tokenId) external view returns (uint256);
 
     /**
      * @notice Gets balances for multiple tokens
@@ -19,10 +16,10 @@ interface IPolymarketCTF {
      * @param tokenIds Array of token IDs
      * @return Array of balances
      */
-    function balanceOfBatch(
-        address[] calldata accounts,
-        uint256[] calldata tokenIds
-    ) external view returns (uint256[] memory);
+    function balanceOfBatch(address[] calldata accounts, uint256[] calldata tokenIds)
+        external
+        view
+        returns (uint256[] memory);
 
     /**
      * @notice Transfers a single token
@@ -32,13 +29,7 @@ interface IPolymarketCTF {
      * @param amount Amount to transfer
      * @param data Additional data
      */
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        uint256 amount,
-        bytes calldata data
-    ) external;
+    function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
 
     /**
      * @notice Transfers multiple tokens
@@ -63,10 +54,7 @@ interface IPolymarketCTF {
      * @param index Position index (0 = NO, 1 = YES typically)
      * @return Payout numerator (0 for losers, 1e6 for winners)
      */
-    function payoutNumerators(
-        bytes32 conditionId,
-        uint256 index
-    ) external view returns (uint256);
+    function payoutNumerators(bytes32 conditionId, uint256 index) external view returns (uint256);
 
     /**
      * @notice Checks if condition is resolved

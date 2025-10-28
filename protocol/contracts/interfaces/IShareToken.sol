@@ -48,9 +48,5 @@ interface IShareToken is IERC20 {
      * @param to Destination address
      * @param amount Amount to transfer
      */
-    function forwardTransferFromNoChecks(
-        address from,
-        address to,
-        uint256 amount
-    ) external;
+    function forwardTransferFromNoChecks(address from, address to, uint256 amount) external;
 }
