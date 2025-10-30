@@ -1,5 +1,5 @@
 packages:
-  - client/*
+  - apps/*
   - packages/*
 catalog:
   "@commitlint/cli": 19.8.1

@@ -18,14 +18,11 @@
             docker-compose
             go
             go-task
-            solc
-            foundry
             git
             jq
             yq
             ripgrep
             fd
-            python3
             vault
             shellcheck
             shfmt
