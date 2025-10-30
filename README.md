@@ -1,1 +1,1 @@
-# Lattica
+# Lattica dApp Frontend
