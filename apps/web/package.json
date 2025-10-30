@@ -1,5 +1,5 @@
 {
-  "name": "@lattica/frontend",
+  "name": "@lattica-frontend/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -26,8 +26,8 @@
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
-    "@lattica/eslint": "workspace: *",
-    "@lattica/tsconfig": "workspace: *",
+    "@lattica-frontend/eslint": "workspace: *",
+    "@lattica-frontend/tsconfig": "workspace: *",
     "@tanstack/eslint-config": "catalog:",
     "@testing-library/dom": "catalog:",
     "@testing-library/react": "catalog:",

@@ -1,5 +1,5 @@
 {
-  "name": "@lattica/tsconfig",
+  "name": "@lattica-frontend/tsconfig",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",

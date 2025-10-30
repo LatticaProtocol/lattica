@@ -1,5 +1,5 @@
 {
-  "name": "lattica",
+  "name": "lattica-frontend",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -7,10 +7,6 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "db:generate": "pnpm --filter @lattica/backend db:generate",
-    "db:migrate": "pnpm --filter @lattica/backend db:migrate",
-    "db:seed": "pnpm --filter @lattica/backend db:seed",
-    "db:studio": "pnpm --filter @lattica/backend db:studio",
     "prepare": "husky"
   },
   "devDependencies": {

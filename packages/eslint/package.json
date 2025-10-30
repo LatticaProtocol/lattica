@@ -1,5 +1,5 @@
 {
-  "name": "@lattica/eslint",
+  "name": "@lattica-frontend/eslint",
   "version": "0.0.0",
   "type": "module",
   "private": true,
